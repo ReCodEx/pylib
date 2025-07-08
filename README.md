@@ -34,6 +34,7 @@
 -       description: The data
 +       description: Placeholder response
 ```
+### exercises_presenter_action_tags_update_global
 ```diff
 /v1/exercises/tags/{tag}:
   post:
