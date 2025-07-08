@@ -4,28 +4,28 @@ def camel_case_to_snake_case(camel_case_string):
     return ''.join(['_' + char.lower() if char.isupper() else char for char in camel_case_string])
 
 def parse_endpoint_function(endpoint: Callable) -> tuple[str, str]:
-    """Extracts the presenter and handler names from a generated endpoint function.
+    """Extracts the presenter and action names from a generated endpoint function.
 
     Args:
         endpoint (Callable): A generated endpoint function.
 
     Returns:
-        tuple[str]: Returns a (presenter, handler) tuple.
+        tuple[str]: Returns a (presenter, action) tuple.
     """
 
     name = endpoint.__name__
     presenter_pos = name.find("_presenter")
     action_pos = name.find("action_")
     presenter = name[:presenter_pos]
-    handler = name[action_pos:]
+    action = name[action_pos:]
 
-    return (presenter, handler)
+    return (presenter, action)
 
 def preprocess_raw_input_data(
         path_params: dict,
         query_params: dict,
         presenter: str,
-        handler: str,
+        action: str,
         endpoint_resolver
     ) -> tuple[dict, dict]:
     """Refines raw string values of path and query parameters based on a schema.
@@ -34,22 +34,22 @@ def preprocess_raw_input_data(
         path_params (dict): Path parameters.
         query_params (dict): Query parameters.
         presenter (str): Endpoint presenter.
-        handler (str): Endpoint handler.
+        action (str): Endpoint action.
         endpoint_resolver (_type_): Endpoint resolver used by the client.
 
     Returns:
         tuple[dict, dict]: Returns preprocessed path and query parameters.
     """
 
-    processed_path_params = __parse_input_values(path_params, presenter, handler, endpoint_resolver.get_path_param)
-    processed_query_params = __parse_input_values(query_params, presenter, handler, endpoint_resolver.get_query_param)
+    processed_path_params = __parse_input_values(path_params, presenter, action, endpoint_resolver.get_path_param)
+    processed_query_params = __parse_input_values(query_params, presenter, action, endpoint_resolver.get_query_param)
     return (processed_path_params, processed_query_params)
 
-def __parse_input_values(params: dict, presenter: str, handler: str, param_definition_callback: Callable) -> dict:
+def __parse_input_values(params: dict, presenter: str, action: str, param_definition_callback: Callable) -> dict:
     processed_params = {}
     for key, value in params.items():
         # get parameter schema
-        param_definition = param_definition_callback(presenter, handler, key)
+        param_definition = param_definition_callback(presenter, action, key)
         # by default, the new value will be the same
         processed_params[key] = value
 

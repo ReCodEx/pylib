@@ -76,13 +76,13 @@ class Client:
 
         return response_dict["payload"]["accessToken"]
 
-    def send_request(self, presenter: str, handler: str, body={}, path_params={}, query_params={}, files={}, raw_body=False) -> ClientResponse:
+    def send_request(self, presenter: str, action: str, body={}, path_params={}, query_params={}, files={}, raw_body=False) -> ClientResponse:
         """Sends a request to a single ReCodEx endpoint.
         Automatically validates the request parameters.
 
         Args:
             presenter (str): The name of the endpoint presenter.
-            handler (str): The name of the endpoint handler.
+            action (str): The name of the endpoint action.
             body (dict, optional): The body of the request. Can either be a dictionary of a generated model object.
                 Defaults to {}.
             path_params (dict, optional): A dictionary of path parameter name-value pairs. Defaults to {}.
@@ -95,10 +95,10 @@ class Client:
         """
 
         # get the request schema
-        endpoint_definition = self.endpoint_resolver.get_endpoint_definition(presenter, handler)
+        endpoint_definition = self.endpoint_resolver.get_endpoint_definition(presenter, action)
 
         # in case the values are in string format, convert them to the correct types
-        path_params, query_params = preprocess_raw_input_data(path_params, query_params, presenter, handler, self.endpoint_resolver)
+        path_params, query_params = preprocess_raw_input_data(path_params, query_params, presenter, action, self.endpoint_resolver)
 
         # validate the request (throws jsonschema.exceptions.ValidationError when invalid)
         if raw_body:
@@ -110,7 +110,7 @@ class Client:
         self.__fix_boolean_url_params(path_params)
         self.__fix_boolean_url_params(query_params)
 
-        endpoint_callback = self.endpoint_resolver.get_endpoint_callback(presenter, handler, self.generated_api)
+        endpoint_callback = self.endpoint_resolver.get_endpoint_callback(presenter, action, self.generated_api)
 
         # the endpoints must not have the body param passed if empty
         if bool(body):
@@ -140,5 +140,5 @@ class Client:
             ClientResponse: Returns an object detailing the response.
         """
 
-        presenter, handler = parse_endpoint_function(endpoint)
-        return self.send_request(presenter, handler, body, path_params, query_params, files, raw_body)
+        presenter, action = parse_endpoint_function(endpoint)
+        return self.send_request(presenter, action, body, path_params, query_params, files, raw_body)

@@ -8,7 +8,7 @@ from ..generated.swagger_client.rest import ApiException
 from ..client_components.alias_container import AliasContainer
 
 class EndpointResolver:
-    """Class that converts endpoint presenter and handler names or their aliases to a callback.
+    """Class that converts endpoint presenter and action names or their aliases to a callback.
     """
 
     def __init__(self):
@@ -67,11 +67,11 @@ class EndpointResolver:
             if 'alias' in presenter_alias_obj:
                 self.alias_container.add_presenter_alias(presenter, presenter_alias_obj['alias'])
 
-            if 'handlers' not in presenter_alias_obj:
+            if 'actions' not in presenter_alias_obj:
                 continue
 
-            for handler, handler_alias in presenter_alias_obj['handlers'].items():
-                self.alias_container.add_handler_alias(presenter, handler, handler_alias)
+            for action, action_alias in presenter_alias_obj['actions'].items():
+                self.alias_container.add_action_alias(presenter, action, action_alias)
 
     def get_swagger(self) -> str:
         """Reads the current swagger specification file and returns it.
@@ -83,12 +83,12 @@ class EndpointResolver:
         with open(filepath, "r") as handle:
             return handle.read()
 
-    def get_endpoint_callback(self, presenter: str, handler: str, generated_api: DefaultApi) -> Callable:
+    def get_endpoint_callback(self, presenter: str, action: str, generated_api: DefaultApi) -> Callable:
         """Finds and returns the generated endpoint.
 
         Args:
             presenter (str): The name of the presenter or alias.
-            handler (str): The name of the handler or alias.
+            action (str): The name of the action or alias.
             generated_api (DefaultApi): The generated DefaultApi instance used.
 
         Raises:
@@ -98,51 +98,51 @@ class EndpointResolver:
             Callable: Returns the generated endpoint callback.
         """
 
-        operation_id = self.alias_container.get_operation_id(presenter, handler)
+        operation_id = self.alias_container.get_operation_id(presenter, action)
         endpoint_callback = getattr(generated_api, operation_id, None)
         if endpoint_callback == None:
             raise ApiException(500, f"Endpoint {operation_id} not found.")
         return endpoint_callback
 
-    def get_endpoint_definition(self, presenter: str, handler: str) -> dict:
+    def get_endpoint_definition(self, presenter: str, action: str) -> dict:
         """Returns the schema definition of the endpoint.
 
         Args:
             presenter (str): The name of the presenter or alias.
-            handler (str): The name of the handler or alias.
+            action (str): The name of the action or alias.
 
         Returns:
             dict: A dictionary containing the endpoint schema.
         """
 
-        operation_id = self.alias_container.get_operation_id(presenter, handler)
+        operation_id = self.alias_container.get_operation_id(presenter, action)
         return self.definitions[operation_id]
     
-    def endpoint_has_body(self, presenter: str, handler: str) -> bool:
+    def endpoint_has_body(self, presenter: str, action: str) -> bool:
         """Returns whether an endpoint request expects a body.
 
         Args:
             presenter (str): ReCodEx presenter or alias.
-            handler (str): ReCodEx handler or alias.
+            action (str): ReCodEx action or alias.
 
         Returns:
             bool: Returns whether an endpoint request expects a body.
         """
-        definition = self.get_endpoint_definition(presenter, handler)
+        definition = self.get_endpoint_definition(presenter, action)
         return "requestBody" in definition
     
-    def get_endpoint_params(self, presenter: str, handler: str, method: str) -> list[dict]:
+    def get_endpoint_params(self, presenter: str, action: str, method: str) -> list[dict]:
         """Returns a list of endpoint parameters matching the selected method.
 
         Args:
             presenter (str): ReCodEx presenter or alias.
-            handler (str): ReCodEx handler or alias.
+            action (str): ReCodEx action or alias.
             method (str): Either 'path' or 'query'.
 
         Returns:
             list[dict]: Returns a list of endpoint parameters matching the selected method.
         """
-        definition = self.get_endpoint_definition(presenter, handler)
+        definition = self.get_endpoint_definition(presenter, action)
 
         if "parameters" not in definition:
             return []
@@ -156,59 +156,59 @@ class EndpointResolver:
 
         return param_defs_filtered
     
-    def get_path_params(self, presenter: str, handler: str) -> list[dict]:
+    def get_path_params(self, presenter: str, action: str) -> list[dict]:
         """Returns a list of endpoint path parameters.
 
         Args:
             presenter (str): ReCodEx presenter or alias.
-            handler (str): ReCodEx handler or alias.
+            action (str): ReCodEx action or alias.
 
         Returns:
             list[dict]: Returns a list of endpoint path parameters.
         """
-        return self.get_endpoint_params(presenter, handler, 'path')
+        return self.get_endpoint_params(presenter, action, 'path')
     
-    def get_path_param(self, presenter: str, handler: str, param_name: str) -> dict|None:
+    def get_path_param(self, presenter: str, action: str, param_name: str) -> dict|None:
         """Returns a specific endpoint path parameter or None if not found.
 
         Args:
             presenter (str): ReCodEx presenter or alias.
-            handler (str): ReCodEx handler or alias.
+            action (str): ReCodEx action or alias.
             param_name (str): Name of a path parameter.
 
         Returns:
             Returns a specific endpoint path parameter or None if not found.
         """
-        path_params = self.get_path_params(presenter, handler)
+        path_params = self.get_path_params(presenter, action)
         for path_param in path_params:
             if path_param["name"] == param_name or path_param["python_name"] == param_name:
                 return path_param
         return None
     
-    def get_query_params(self, presenter: str, handler: str) -> list[dict]:
+    def get_query_params(self, presenter: str, action: str) -> list[dict]:
         """Returns a list of endpoint query parameters.
 
         Args:
             presenter (str): ReCodEx presenter or alias.
-            handler (str): ReCodEx handler or alias.
+            action (str): ReCodEx action or alias.
 
         Returns:
             list[dict]: Returns a list of endpoint query parameters.
         """
-        return self.get_endpoint_params(presenter, handler, 'query')
+        return self.get_endpoint_params(presenter, action, 'query')
 
-    def get_query_param(self, presenter: str, handler: str, param_name: str) -> dict|None:
+    def get_query_param(self, presenter: str, action: str, param_name: str) -> dict|None:
         """Returns a specific endpoint query parameter or None if not found.
 
         Args:
             presenter (str): ReCodEx presenter or alias.
-            handler (str): ReCodEx handler or alias.
+            action (str): ReCodEx action or alias.
             param_name (str): Name of a query parameter.
 
         Returns:
             Returns a specific endpoint query parameter or None if not found.
         """
-        query_params = self.get_query_params(presenter, handler)
+        query_params = self.get_query_params(presenter, action)
         for query_param in query_params:
             if query_param["name"] == param_name or query_param["python_name"] == param_name:
                 return query_param
@@ -222,13 +222,13 @@ class EndpointResolver:
         """
         return self.alias_container.get_presenters()
     
-    def get_handlers(self, presenter) -> list[str]:
-        """Returns a list of handlers in snake case without the 'action_' prefix.
+    def get_actions(self, presenter) -> list[str]:
+        """Returns a list of actions in snake case without the 'action_' prefix.
 
         Args:
-            presenter (str): The presenter containing the handlers. Can be any presenter alias.
+            presenter (str): The presenter containing the actions. Can be any presenter alias.
 
         Returns:
-            list[str]: Returns a list of handlers in snake case without the 'action_' prefix.
+            list[str]: Returns a list of actions in snake case without the 'action_' prefix.
         """
-        return self.alias_container.get_handlers(presenter)
+        return self.alias_container.get_actions(presenter)
