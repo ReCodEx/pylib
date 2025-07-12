@@ -4,6 +4,8 @@ import sys
 from deepdiff import DeepDiff
 from pathlib import Path
 
+from recodex_cli_lib.helpers.utils import camel_case_to_snake_case
+
 class LineStatus:
     """Class that represents the diff lines of an object or list.
     Also holds whether the object introduced some changes on any level of nesting.
@@ -298,8 +300,10 @@ def new_changes(old_swagger: dict, new_swagger: dict) -> bool:
 
     return len(find_different_paths(old_swagger, new_swagger)) > 0
 
-def get_operation_id(old_swagger: dict, new_swagger: dict, path: str):
-    pass
+def get_operation_id(old_method_content: dict, new_method_content: dict):
+    if "operationId" in new_method_content:
+        return new_method_content["operationId"]
+    return old_method_content["operationId"]
 
 def get_diff_lines(old_swagger: dict, new_swagger: dict) -> list[str]:
     """Returns a list of lines representing the diff in markdown format
@@ -326,17 +330,21 @@ def get_diff_lines(old_swagger: dict, new_swagger: dict) -> list[str]:
             added = False
             removed = False
             if path in old_swagger["paths"] and path in new_swagger["paths"]:
-                print_indented_kept(f"{path}:", 0, diff)
+                print_indented_kept(f"{path}:", -2, diff)
             elif path in new_swagger["paths"]:
-                print_indented_added(f"{path}:", 0, diff)
+                print_indented_added(f"{path}:", -2, diff)
                 added = True
             else:
-                print_indented_removed(f"{path}:", 0, diff)
+                print_indented_removed(f"{path}:", -2, diff)
                 removed = True
 
-            nested_diff = handle_dicts(old_method_content, new_method_content, 2)
+            nested_diff = to_yaml_diff(method, old_method_content, new_method_content, 2)
             diff.merge(nested_diff, set_added=added, set_removed=removed)
 
+            operation_id = get_operation_id(old_method_content, new_method_content)
+            operation_id = camel_case_to_snake_case(operation_id)
+
+            lines.append (f"### {operation_id}")
             lines.append("```diff")
             lines += diff.get_print_lines()
             lines.append("```")

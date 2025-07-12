@@ -162,32 +162,272 @@ This file should be updated regularly to make sure the tests reflect the latest 
 
 
 ## Latest API Endpoint Changes
+### security_presenter_action_check
+```diff
+/v1/security/check:
+  post:
+    operationId: securityPresenterActionCheck
+    ...
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### login_presenter_action_default
+```diff
+/v1/login:
+  post:
+    ...
+    operationId: loginPresenterActionDefault
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### login_presenter_action_refresh
+```diff
+/v1/login/refresh:
+  post:
+    ...
+    operationId: loginPresenterActionRefresh
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### login_presenter_action_issue_restricted_token
+```diff
+/v1/login/issue-restricted-token:
+  post:
+    ...
+    operationId: loginPresenterActionIssueRestrictedToken
+    requestBody:
+      content:
+        application/json:
+          schema:
+            ...
+            properties:
+              ...
+              scopes:
+                ...
++               items:
++                 <empty object>
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### login_presenter_action_take_over
+```diff
+/v1/login/takeover/{userId}:
+  post:
+    ...
+    operationId: loginPresenterActionTakeOver
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### login_presenter_action_external
+```diff
+/v1/login/{authenticatorName}:
+  post:
+    ...
+    operationId: loginPresenterActionExternal
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### broker_presenter_action_stats
+```diff
+/v1/broker/stats:
+  get:
+    ...
+    operationId: brokerPresenterActionStats
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### broker_presenter_action_freeze
+```diff
+/v1/broker/freeze:
+  post:
+    ...
+    operationId: brokerPresenterActionFreeze
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### broker_presenter_action_unfreeze
+```diff
+/v1/broker/unfreeze:
+  post:
+    ...
+    operationId: brokerPresenterActionUnfreeze
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### broker_reports_presenter_action_error
+```diff
+/v1/broker-reports/error:
+  post:
+    ...
+    operationId: brokerReportsPresenterActionError
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### broker_reports_presenter_action_job_status
+```diff
+/v1/broker-reports/job-status/{jobId}:
+  post:
+    ...
+    operationId: brokerReportsPresenterActionJobStatus
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### comments_presenter_action_default
 ```diff
 /v1/comments/{id}:
   get:
     ...
     operationId: commentsPresenterActionDefault
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
+```
+### comments_presenter_action_add_comment
+```diff
+/v1/comments/{id}:
   post:
     ...
     operationId: commentsPresenterActionAddComment
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### comments_presenter_action_toggle_private
+```diff
+/v1/comments/{threadId}/comment/{commentId}/toggle:
+  post:
+    ...
+    operationId: commentsPresenterActionTogglePrivate
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### comments_presenter_action_set_private
+```diff
+/v1/comments/{threadId}/comment/{commentId}/private:
+  post:
+    ...
+    operationId: commentsPresenterActionSetPrivate
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### comments_presenter_action_delete
+```diff
+/v1/comments/{threadId}/comment/{commentId}:
+  delete:
+    ...
+    operationId: commentsPresenterActionDelete
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### exercises_presenter_action_default
+```diff
+/v1/exercises:
+  get:
+    ...
+    operationId: exercisesPresenterActionDefault
     parameters:
     -
-      name: id
+      name: filters
       ...
       schema:
         ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
++       items:
++         <empty object>
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### exercises_presenter_action_create
+```diff
+/v1/exercises:
+  post:
+    ...
+    operationId: exercisesPresenterActionCreate
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### exercises_presenter_action_list_by_ids
+```diff
+/v1/exercises/list:
+  post:
+    ...
+    operationId: exercisesPresenterActionListByIds
+    requestBody:
+      content:
+        application/json:
+          schema:
+            ...
+            properties:
+              ids:
+                ...
++               items:
++                 <empty object>
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### exercises_presenter_action_authors
+```diff
+/v1/exercises/authors:
+  get:
+    ...
+    operationId: exercisesPresenterActionAuthors
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### exercises_presenter_action_all_tags
+```diff
+/v1/exercises/tags:
+  get:
+    ...
+    operationId: exercisesPresenterActionAllTags
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### exercises_presenter_action_tags_stats
+```diff
+/v1/exercises/tags-stats:
+  get:
+    ...
+    operationId: exercisesPresenterActionTagsStats
     responses:
       200:
 -       description: The data
@@ -199,45 +439,39 @@ This file should be updated regularly to make sure the tests reflect the latest 
   post:
     ...
     operationId: exercisesPresenterActionTagsUpdateGlobal
-    parameters:
-    -
-      name: renameTo
-      ...
-      schema:
-        ...
-+       maxLength: 32
-+       minLength: 1
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### exercises_presenter_action_remove
+```diff
+/v1/exercises/{id}:
+  delete:
+    ...
+    operationId: exercisesPresenterActionRemove
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### exercises_presenter_action_detail
 ```diff
 /v1/exercises/{id}:
   get:
     ...
     operationId: exercisesPresenterActionDetail
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
+```
+### exercises_presenter_action_update_detail
+```diff
+/v1/exercises/{id}:
   post:
     ...
     operationId: exercisesPresenterActionUpdateDetail
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     requestBody:
       content:
         application/json:
@@ -253,84 +487,46 @@ This file should be updated regularly to make sure the tests reflect the latest 
       200:
 -       description: The data
 +       description: Placeholder response
-  delete:
-    ...
-    operationId: exercisesPresenterActionRemove
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
 ```
+### exercises_presenter_action_validate
 ```diff
 /v1/exercises/{id}/validate:
   post:
     ...
     operationId: exercisesPresenterActionValidate
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### exercises_presenter_action_fork_from
 ```diff
 /v1/exercises/{id}/fork:
   post:
     ...
     operationId: exercisesPresenterActionForkFrom
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### exercises_presenter_action_assignments
 ```diff
 /v1/exercises/{id}/assignments:
   get:
     ...
     operationId: exercisesPresenterActionAssignments
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### exercises_presenter_action_hardware_groups
 ```diff
 /v1/exercises/{id}/hardware-groups:
   post:
     ...
     operationId: exercisesPresenterActionHardwareGroups
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     requestBody:
       content:
         application/json:
@@ -346,121 +542,78 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### exercises_presenter_action_detach_group
+```diff
+/v1/exercises/{id}/groups/{groupId}:
+  delete:
+    ...
+    operationId: exercisesPresenterActionDetachGroup
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### exercises_presenter_action_attach_group
 ```diff
 /v1/exercises/{id}/groups/{groupId}:
   post:
     ...
     operationId: exercisesPresenterActionAttachGroup
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  delete:
-    ...
-    operationId: exercisesPresenterActionDetachGroup
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### exercises_presenter_action_remove_tag
+```diff
+/v1/exercises/{id}/tags/{name}:
+  delete:
+    ...
+    operationId: exercisesPresenterActionRemoveTag
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### exercises_presenter_action_add_tag
 ```diff
 /v1/exercises/{id}/tags/{name}:
   post:
     ...
     operationId: exercisesPresenterActionAddTag
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    -
-      name: name
-      ...
-      schema:
-        ...
-+       maxLength: 32
-+       minLength: 1
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  delete:
-    ...
-    operationId: exercisesPresenterActionRemoveTag
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### exercises_presenter_action_set_archived
 ```diff
 /v1/exercises/{id}/archived:
   post:
     ...
     operationId: exercisesPresenterActionSetArchived
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### exercises_presenter_action_set_author
 ```diff
 /v1/exercises/{id}/author:
   post:
     ...
     operationId: exercisesPresenterActionSetAuthor
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### exercises_presenter_action_set_admins
 ```diff
 /v1/exercises/{id}/admins:
   post:
     ...
     operationId: exercisesPresenterActionSetAdmins
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     requestBody:
       content:
         application/json:
@@ -476,179 +629,122 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### exercises_presenter_action_send_notification
 ```diff
 /v1/exercises/{id}/notification:
   post:
     ...
     operationId: exercisesPresenterActionSendNotification
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### exercise_files_presenter_action_get_supplementary_files
 ```diff
 /v1/exercises/{id}/supplementary-files:
   get:
     ...
     operationId: exerciseFilesPresenterActionGetSupplementaryFiles
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  post:
-    ...
-    operationId: exerciseFilesPresenterActionUploadSupplementaryFiles
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### exercise_files_presenter_action_upload_supplementary_files
+```diff
+/v1/exercises/{id}/supplementary-files:
+  post:
+    ...
+    operationId: exerciseFilesPresenterActionUploadSupplementaryFiles
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### exercise_files_presenter_action_delete_supplementary_file
 ```diff
 /v1/exercises/{id}/supplementary-files/{fileId}:
   delete:
     ...
     operationId: exerciseFilesPresenterActionDeleteSupplementaryFile
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### exercise_files_presenter_action_download_supplementary_files_archive
 ```diff
 /v1/exercises/{id}/supplementary-files/download-archive:
   get:
     ...
     operationId: exerciseFilesPresenterActionDownloadSupplementaryFilesArchive
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### exercise_files_presenter_action_get_attachment_files
 ```diff
 /v1/exercises/{id}/attachment-files:
   get:
     ...
     operationId: exerciseFilesPresenterActionGetAttachmentFiles
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  post:
-    ...
-    operationId: exerciseFilesPresenterActionUploadAttachmentFiles
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### exercise_files_presenter_action_upload_attachment_files
+```diff
+/v1/exercises/{id}/attachment-files:
+  post:
+    ...
+    operationId: exerciseFilesPresenterActionUploadAttachmentFiles
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### exercise_files_presenter_action_delete_attachment_file
 ```diff
 /v1/exercises/{id}/attachment-files/{fileId}:
   delete:
     ...
     operationId: exerciseFilesPresenterActionDeleteAttachmentFile
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### exercise_files_presenter_action_download_attachment_files_archive
 ```diff
 /v1/exercises/{id}/attachment-files/download-archive:
   get:
     ...
     operationId: exerciseFilesPresenterActionDownloadAttachmentFilesArchive
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### exercises_config_presenter_action_get_tests
 ```diff
 /v1/exercises/{id}/tests:
   get:
     ...
     operationId: exercisesConfigPresenterActionGetTests
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
+```
+### exercises_config_presenter_action_set_tests
+```diff
+/v1/exercises/{id}/tests:
   post:
     ...
     operationId: exercisesConfigPresenterActionSetTests
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     requestBody:
       content:
         application/json:
@@ -664,32 +760,23 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### exercises_config_presenter_action_get_environment_configs
 ```diff
 /v1/exercises/{id}/environment-configs:
   get:
     ...
     operationId: exercisesConfigPresenterActionGetEnvironmentConfigs
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
+```
+### exercises_config_presenter_action_update_environment_configs
+```diff
+/v1/exercises/{id}/environment-configs:
   post:
     ...
     operationId: exercisesConfigPresenterActionUpdateEnvironmentConfigs
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     requestBody:
       content:
         application/json:
@@ -705,32 +792,23 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### exercises_config_presenter_action_get_configuration
 ```diff
 /v1/exercises/{id}/config:
   get:
     ...
     operationId: exercisesConfigPresenterActionGetConfiguration
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
+```
+### exercises_config_presenter_action_set_configuration
+```diff
+/v1/exercises/{id}/config:
   post:
     ...
     operationId: exercisesConfigPresenterActionSetConfiguration
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     requestBody:
       content:
         application/json:
@@ -746,18 +824,12 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### exercises_config_presenter_action_get_variables_for_exercise_config
 ```diff
 /v1/exercises/{id}/config/variables:
   post:
     ...
     operationId: exercisesConfigPresenterActionGetVariablesForExerciseConfig
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     requestBody:
       content:
         application/json:
@@ -774,32 +846,34 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### exercises_config_presenter_action_remove_hardware_group_limits
+```diff
+/v1/exercises/{id}/environment/{runtimeEnvironmentId}/hwgroup/{hwGroupId}/limits:
+  delete:
+    ...
+    operationId: exercisesConfigPresenterActionRemoveHardwareGroupLimits
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### exercises_config_presenter_action_get_hardware_group_limits
 ```diff
 /v1/exercises/{id}/environment/{runtimeEnvironmentId}/hwgroup/{hwGroupId}/limits:
   get:
     ...
     operationId: exercisesConfigPresenterActionGetHardwareGroupLimits
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
+```
+### exercises_config_presenter_action_set_hardware_group_limits
+```diff
+/v1/exercises/{id}/environment/{runtimeEnvironmentId}/hwgroup/{hwGroupId}/limits:
   post:
     ...
     operationId: exercisesConfigPresenterActionSetHardwareGroupLimits
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     requestBody:
       content:
         application/json:
@@ -814,47 +888,24 @@ This file should be updated regularly to make sure the tests reflect the latest 
       200:
 -       description: The data
 +       description: Placeholder response
-  delete:
-    ...
-    operationId: exercisesConfigPresenterActionRemoveHardwareGroupLimits
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
 ```
+### exercises_config_presenter_action_get_limits
 ```diff
 /v1/exercises/{id}/limits:
   get:
     ...
     operationId: exercisesConfigPresenterActionGetLimits
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
+```
+### exercises_config_presenter_action_set_limits
+```diff
+/v1/exercises/{id}/limits:
   post:
     ...
     operationId: exercisesConfigPresenterActionSetLimits
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     requestBody:
       content:
         application/json:
@@ -870,63 +921,67 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### exercises_config_presenter_action_get_score_config
 ```diff
 /v1/exercises/{id}/score-config:
   get:
     ...
     operationId: exercisesConfigPresenterActionGetScoreConfig
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  post:
-    ...
-    operationId: exercisesConfigPresenterActionSetScoreConfig
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### exercises_config_presenter_action_set_score_config
+```diff
+/v1/exercises/{id}/score-config:
+  post:
+    ...
+    operationId: exercisesConfigPresenterActionSetScoreConfig
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### assignments_presenter_action_create
+```diff
+/v1/exercise-assignments:
+  post:
+    ...
+    operationId: assignmentsPresenterActionCreate
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### assignments_presenter_action_remove
+```diff
+/v1/exercise-assignments/{id}:
+  delete:
+    ...
+    operationId: assignmentsPresenterActionRemove
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### assignments_presenter_action_detail
 ```diff
 /v1/exercise-assignments/{id}:
   get:
     ...
     operationId: assignmentsPresenterActionDetail
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
+```
+### assignments_presenter_action_update_detail
+```diff
+/v1/exercise-assignments/{id}:
   post:
     ...
     operationId: assignmentsPresenterActionUpdateDetail
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     requestBody:
       content:
         application/json:
@@ -946,217 +1001,134 @@ This file should be updated regularly to make sure the tests reflect the latest 
       200:
 -       description: The data
 +       description: Placeholder response
-  delete:
-    ...
-    operationId: assignmentsPresenterActionRemove
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
 ```
+### assignments_presenter_action_solutions
 ```diff
 /v1/exercise-assignments/{id}/solutions:
   get:
     ...
     operationId: assignmentsPresenterActionSolutions
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### assignments_presenter_action_best_solutions
 ```diff
 /v1/exercise-assignments/{id}/best-solutions:
   get:
     ...
     operationId: assignmentsPresenterActionBestSolutions
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### assignments_presenter_action_download_best_solutions_archive
 ```diff
 /v1/exercise-assignments/{id}/download-best-solutions:
   get:
     ...
     operationId: assignmentsPresenterActionDownloadBestSolutionsArchive
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### assignments_presenter_action_user_solutions
 ```diff
 /v1/exercise-assignments/{id}/users/{userId}/solutions:
   get:
     ...
     operationId: assignmentsPresenterActionUserSolutions
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### assignments_presenter_action_best_solution
 ```diff
 /v1/exercise-assignments/{id}/users/{userId}/best-solution:
   get:
     ...
     operationId: assignmentsPresenterActionBestSolution
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### assignments_presenter_action_validate
 ```diff
 /v1/exercise-assignments/{id}/validate:
   post:
     ...
     operationId: assignmentsPresenterActionValidate
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### assignments_presenter_action_sync_with_exercise
 ```diff
 /v1/exercise-assignments/{id}/sync-exercise:
   post:
     ...
     operationId: assignmentsPresenterActionSyncWithExercise
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### submit_presenter_action_can_submit
 ```diff
 /v1/exercise-assignments/{id}/can-submit:
   get:
     ...
     operationId: submitPresenterActionCanSubmit
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### submit_presenter_action_submit
 ```diff
 /v1/exercise-assignments/{id}/submit:
   post:
     ...
     operationId: submitPresenterActionSubmit
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### submit_presenter_action_resubmit_all_async_job_status
 ```diff
 /v1/exercise-assignments/{id}/resubmit-all:
   get:
     ...
     operationId: submitPresenterActionResubmitAllAsyncJobStatus
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  post:
-    ...
-    operationId: submitPresenterActionResubmitAll
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### submit_presenter_action_resubmit_all
+```diff
+/v1/exercise-assignments/{id}/resubmit-all:
+  post:
+    ...
+    operationId: submitPresenterActionResubmitAll
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### submit_presenter_action_pre_submit
 ```diff
 /v1/exercise-assignments/{id}/pre-submit:
   post:
     ...
     operationId: submitPresenterActionPreSubmit
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     requestBody:
       content:
         application/json:
@@ -1172,49 +1144,89 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### async_jobs_presenter_action_assignment_jobs
 ```diff
 /v1/exercise-assignments/{id}/async-jobs:
   get:
     ...
     operationId: asyncJobsPresenterActionAssignmentJobs
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### groups_presenter_action_default
+```diff
+/v1/groups:
+  get:
+    ...
+    operationId: groupsPresenterActionDefault
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### groups_presenter_action_add_group
+```diff
+/v1/groups:
+  post:
+    ...
+    operationId: groupsPresenterActionAddGroup
+    requestBody:
+      content:
+        application/json:
+          schema:
+            ...
+            properties:
+              ...
+              localizedTexts:
+                ...
++               items:
++                 <empty object>
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### groups_presenter_action_validate_add_group_data
+```diff
+/v1/groups/validate-add-group-data:
+  post:
+    ...
+    operationId: groupsPresenterActionValidateAddGroupData
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### groups_presenter_action_remove_group
+```diff
+/v1/groups/{id}:
+  delete:
+    ...
+    operationId: groupsPresenterActionRemoveGroup
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### groups_presenter_action_detail
 ```diff
 /v1/groups/{id}:
   get:
     ...
     operationId: groupsPresenterActionDetail
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
+```
+### groups_presenter_action_update_group
+```diff
+/v1/groups/{id}:
   post:
     ...
     operationId: groupsPresenterActionUpdateGroup
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     requestBody:
       content:
         application/json:
@@ -1331,2038 +1343,332 @@ This file should be updated regularly to make sure the tests reflect the latest 
 +                       example: 10000000-2000-4000-8000-160000000000
 +                   privateData:
 +                     description: 
-+                     type: string
++                     type: object
 +                     nullable: False
++                     properties:
++                       admins:
++                         description: IDs of all users that have admin privileges to this group (including inherited)
++                         type: array
++                         nullable: False
++                         items:
++                           type: string
++                           pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
++                           example: 10000000-2000-4000-8000-160000000000
++                       supervisors:
++                         description: 
++                         type: array
++                         nullable: False
++                         items:
++                           type: string
++                           pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
++                           example: 10000000-2000-4000-8000-160000000000
++                       observers:
++                         description: 
++                         type: array
++                         nullable: False
++                         items:
++                           type: string
++                           pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
++                           example: 10000000-2000-4000-8000-160000000000
++                       students:
++                         description: 
++                         type: array
++                         nullable: False
++                         items:
++                           type: string
++                           pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
++                           example: 10000000-2000-4000-8000-160000000000
++                       instanceId:
++                         description: 
++                         type: string
++                         pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
++                         example: 10000000-2000-4000-8000-160000000000
++                         nullable: False
++                       hasValidLicence:
++                         description: 
++                         type: boolean
++                         example: true
++                         nullable: False
++                       assignments:
++                         description: 
++                         type: array
++                         nullable: False
++                         items:
++                           type: string
++                           pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
++                           example: 10000000-2000-4000-8000-160000000000
++                       shadowAssignments:
++                         description: 
++                         type: array
++                         nullable: False
++                         items:
++                           type: string
++                           pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
++                           example: 10000000-2000-4000-8000-160000000000
++                       publicStats:
++                         description: 
++                         type: boolean
++                         example: true
++                         nullable: False
++                       detaining:
++                         description: 
++                         type: boolean
++                         example: true
++                         nullable: False
++                       threshold:
++                         description: 
++                         type: number
++                         example: 0.1
++                         nullable: False
++                       pointsLimit:
++                         description: 
++                         type: integer
++                         example: 0
++                         nullable: False
++                       bindings:
++                         description: 
++                         type: array
++                         nullable: False
++                         items:
++                           <empty object>
++                       examBegin:
++                         description: 
++                         type: integer
++                         example: 1740135333
++                         nullable: False
++                       examEnd:
++                         description: 
++                         type: integer
++                         example: 1740135333
++                         nullable: False
++                       examLockStrict:
++                         description: 
++                         type: boolean
++                         example: true
++                         nullable: False
++                       exams:
++                         description: 
++                         type: array
++                         nullable: False
++                         items:
++                           <empty object>
 +                   permissionHints:
 +                     description: 
 +                     type: array
 +                     nullable: False
 +                     items:
 +                       <empty object>
-  delete:
-    ...
-    operationId: groupsPresenterActionRemoveGroup
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
 ```
+### groups_presenter_action_subgroups
 ```diff
 /v1/groups/{id}/subgroups:
   get:
     ...
     operationId: groupsPresenterActionSubgroups
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### groups_presenter_action_set_organizational
 ```diff
 /v1/groups/{id}/organizational:
   post:
     ...
     operationId: groupsPresenterActionSetOrganizational
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### groups_presenter_action_set_archived
 ```diff
 /v1/groups/{id}/archived:
   post:
     ...
     operationId: groupsPresenterActionSetArchived
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### groups_presenter_action_remove_exam_period
+```diff
+/v1/groups/{id}/examPeriod:
+  delete:
+    ...
+    operationId: groupsPresenterActionRemoveExamPeriod
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### groups_presenter_action_set_exam_period
 ```diff
 /v1/groups/{id}/examPeriod:
   post:
     ...
     operationId: groupsPresenterActionSetExamPeriod
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  delete:
-    ...
-    operationId: groupsPresenterActionRemoveExamPeriod
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### groups_presenter_action_get_exam_locks
 ```diff
 /v1/groups/{id}/exam/{examId}:
   get:
     ...
     operationId: groupsPresenterActionGetExamLocks
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### groups_presenter_action_relocate
 ```diff
 /v1/groups/{id}/relocate/{newParentId}:
   post:
     ...
     operationId: groupsPresenterActionRelocate
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### groups_presenter_action_stats
 ```diff
 /v1/groups/{id}/students/stats:
   get:
     ...
     operationId: groupsPresenterActionStats
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### groups_presenter_action_remove_student
+```diff
+/v1/groups/{id}/students/{userId}:
+  delete:
+    ...
+    operationId: groupsPresenterActionRemoveStudent
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### groups_presenter_action_students_stats
 ```diff
 /v1/groups/{id}/students/{userId}:
   get:
     ...
     operationId: groupsPresenterActionStudentsStats
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  post:
-    ...
-    operationId: groupsPresenterActionAddStudent
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  delete:
-    ...
-    operationId: groupsPresenterActionRemoveStudent
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### groups_presenter_action_add_student
+```diff
+/v1/groups/{id}/students/{userId}:
+  post:
+    ...
+    operationId: groupsPresenterActionAddStudent
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### groups_presenter_action_students_solutions
 ```diff
 /v1/groups/{id}/students/{userId}/solutions:
   get:
     ...
     operationId: groupsPresenterActionStudentsSolutions
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### groups_presenter_action_unlock_student
+```diff
+/v1/groups/{id}/lock/{userId}:
+  delete:
+    ...
+    operationId: groupsPresenterActionUnlockStudent
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### groups_presenter_action_lock_student
 ```diff
 /v1/groups/{id}/lock/{userId}:
   post:
     ...
     operationId: groupsPresenterActionLockStudent
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  delete:
-    ...
-    operationId: groupsPresenterActionUnlockStudent
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### groups_presenter_action_members
 ```diff
 /v1/groups/{id}/members:
   get:
     ...
     operationId: groupsPresenterActionMembers
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### groups_presenter_action_remove_member
+```diff
+/v1/groups/{id}/members/{userId}:
+  delete:
+    ...
+    operationId: groupsPresenterActionRemoveMember
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### groups_presenter_action_add_member
 ```diff
 /v1/groups/{id}/members/{userId}:
   post:
     ...
     operationId: groupsPresenterActionAddMember
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  delete:
-    ...
-    operationId: groupsPresenterActionRemoveMember
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### groups_presenter_action_assignments
 ```diff
 /v1/groups/{id}/assignments:
   get:
     ...
     operationId: groupsPresenterActionAssignments
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### groups_presenter_action_shadow_assignments
 ```diff
 /v1/groups/{id}/shadow-assignments:
   get:
     ...
     operationId: groupsPresenterActionShadowAssignments
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
-```diff
-/v1/group-invitations/{id}:
-  get:
-    ...
-    operationId: groupInvitationsPresenterActionDefault
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  post:
-    ...
-    operationId: groupInvitationsPresenterActionUpdate
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  delete:
-    operationId: groupInvitationsPresenterActionRemove
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/group-invitations/{id}/accept:
-  post:
-    ...
-    operationId: groupInvitationsPresenterActionAccept
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/group-attributes/{id}:
-  delete:
-    ...
-    operationId: groupExternalAttributesPresenterActionRemove
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/instances/{id}:
-  get:
-    ...
-    operationId: instancesPresenterActionDetail
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  post:
-    ...
-    operationId: instancesPresenterActionUpdateInstance
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  delete:
-    ...
-    operationId: instancesPresenterActionDeleteInstance
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/instances/{id}/licences:
-  get:
-    ...
-    operationId: instancesPresenterActionLicences
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  post:
-    ...
-    operationId: instancesPresenterActionCreateLicence
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/reference-solutions/{id}/resubmit:
-  post:
-    ...
-    operationId: referenceExerciseSolutionsPresenterActionResubmit
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/reference-solutions/{id}/files:
-  get:
-    ...
-    operationId: referenceExerciseSolutionsPresenterActionFiles
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/assignment-solutions/{id}:
-  get:
-    ...
-    operationId: assignmentSolutionsPresenterActionSolution
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  post:
-    ...
-    operationId: assignmentSolutionsPresenterActionUpdateSolution
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  delete:
-    ...
-    operationId: assignmentSolutionsPresenterActionDeleteSolution
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/assignment-solutions/{id}/bonus-points:
-  post:
-    ...
-    operationId: assignmentSolutionsPresenterActionSetBonusPoints
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/assignment-solutions/{id}/submissions:
-  get:
-    ...
-    operationId: assignmentSolutionsPresenterActionSubmissions
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/assignment-solutions/{id}/set-flag/{flag}:
-  post:
-    ...
-    operationId: assignmentSolutionsPresenterActionSetFlag
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/assignment-solutions/{id}/resubmit:
-  post:
-    ...
-    operationId: submitPresenterActionResubmit
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/assignment-solutions/{id}/files:
-  get:
-    ...
-    operationId: assignmentSolutionsPresenterActionFiles
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/assignment-solutions/{id}/download-solution:
-  get:
-    ...
-    operationId: assignmentSolutionsPresenterActionDownloadSolutionArchive
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/assignment-solutions/{id}/review:
-  get:
-    ...
-    operationId: assignmentSolutionReviewsPresenterActionDefault
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  post:
-    ...
-    operationId: assignmentSolutionReviewsPresenterActionUpdate
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  delete:
-    ...
-    operationId: assignmentSolutionReviewsPresenterActionRemove
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/assignment-solutions/{id}/review-comment:
-  post:
-    ...
-    operationId: assignmentSolutionReviewsPresenterActionNewComment
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/assignment-solutions/{id}/review-comment/{commentId}:
-  post:
-    ...
-    operationId: assignmentSolutionReviewsPresenterActionEditComment
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  delete:
-    ...
-    operationId: assignmentSolutionReviewsPresenterActionDeleteComment
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/assignment-solvers:
-  get:
-    ...
-    operationId: assignmentSolversPresenterActionDefault
-    parameters:
-    -
-      name: assignmentId
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    -
-      name: groupId
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    -
-      name: userId
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/submission-failures/{id}:
-  get:
-    ...
-    operationId: submissionFailuresPresenterActionDetail
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/submission-failures/{id}/resolve:
-  post:
-    ...
-    operationId: submissionFailuresPresenterActionResolve
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/uploaded-files/partial/{id}:
-  put:
-    ...
-    operationId: uploadedFilesPresenterActionAppendPartial
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-+   requestBody:
-+     content:
-+       application/octet-stream:
-+         schema:
-+           type: string
-+           format: binary
-  post:
-    ...
-    operationId: uploadedFilesPresenterActionCompletePartial
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  delete:
-    ...
-    operationId: uploadedFilesPresenterActionCancelPartial
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/uploaded-files:
-  post:
-    ...
-    operationId: uploadedFilesPresenterActionUpload
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-+   requestBody:
-+     content:
-+       multipart/form-data:
-+         schema:
-+           type: object
-+           required:
-+           -
-+             file
-+           properties:
-+             file:
-+               description: The whole file to be uploaded
-+               type: string
-+               format: binary
-+               nullable: False
-```
-```diff
-/v1/uploaded-files/supplementary-file/{id}/download:
-  get:
-    ...
-    operationId: uploadedFilesPresenterActionDownloadSupplementaryFile
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/uploaded-files/{id}:
-  get:
-    ...
-    operationId: uploadedFilesPresenterActionDetail
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/uploaded-files/{id}/download:
-  get:
-    ...
-    operationId: uploadedFilesPresenterActionDownload
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    -
-      name: entry
-      ...
-      schema:
-        ...
-+       minLength: 1
-    -
-      name: similarSolutionId
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/uploaded-files/{id}/content:
-  get:
-    ...
-    operationId: uploadedFilesPresenterActionContent
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    -
-      name: entry
-      ...
-      schema:
-        ...
-+       minLength: 1
-    -
-      name: similarSolutionId
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/uploaded-files/{id}/digest:
-  get:
-    ...
-    operationId: uploadedFilesPresenterActionDigest
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/users/{id}:
-  get:
-    ...
-    operationId: usersPresenterActionDetail
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  post:
-    ...
-    operationId: usersPresenterActionUpdateProfile
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  delete:
-    ...
-    operationId: usersPresenterActionDelete
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/users/{id}/invalidate-tokens:
-  post:
-    ...
-    operationId: usersPresenterActionInvalidateTokens
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/users/{id}/groups:
-  get:
-    ...
-    operationId: usersPresenterActionGroups
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/users/{id}/groups/all:
-  get:
-    ...
-    operationId: usersPresenterActionAllGroups
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/users/{id}/instances:
-  get:
-    ...
-    operationId: usersPresenterActionInstances
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/users/{id}/settings:
-  post:
-    ...
-    operationId: usersPresenterActionUpdateSettings
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/users/{id}/ui-data:
-  post:
-    ...
-    operationId: usersPresenterActionUpdateUiData
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    requestBody:
-      content:
-        application/json:
-          schema:
-            ...
-            properties:
-              uiData:
-                ...
-+               items:
-+                 <empty object>
-              ...
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/users/{id}/create-local:
-  post:
-    ...
-    operationId: usersPresenterActionCreateLocalAccount
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/users/{id}/role:
-  post:
-    ...
-    operationId: usersPresenterActionSetRole
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/users/{id}/external-login/{service}:
-  post:
-    ...
-    operationId: usersPresenterActionUpdateExternalLogin
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  delete:
-    ...
-    operationId: usersPresenterActionRemoveExternalLogin
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/users/{id}/calendar-tokens:
-  get:
-    ...
-    operationId: userCalendarsPresenterActionUserCalendars
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  post:
-    ...
-    operationId: userCalendarsPresenterActionCreateCalendar
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/users/{id}/pending-reviews:
-  get:
-    ...
-    operationId: assignmentSolutionReviewsPresenterActionPending
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/users/{id}/review-requests:
-  get:
-    ...
-    operationId: assignmentSolutionsPresenterActionReviewRequests
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/pipelines/{id}/fork:
-  post:
-    ...
-    operationId: pipelinesPresenterActionForkPipeline
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/pipelines/{id}:
-  get:
-    ...
-    operationId: pipelinesPresenterActionGetPipeline
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  post:
-    ...
-    operationId: pipelinesPresenterActionUpdatePipeline
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    requestBody:
-      content:
-        application/json:
-          schema:
-            ...
-            properties:
-              ...
-              parameters:
-                ...
-+               items:
-+                 <empty object>
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  delete:
-    ...
-    operationId: pipelinesPresenterActionRemovePipeline
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/pipelines/{id}/runtime-environments:
-  post:
-    ...
-    operationId: pipelinesPresenterActionUpdateRuntimeEnvironments
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/pipelines/{id}/validate:
-  post:
-    ...
-    operationId: pipelinesPresenterActionValidatePipeline
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/pipelines/{id}/supplementary-files:
-  get:
-    ...
-    operationId: pipelinesPresenterActionGetSupplementaryFiles
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  post:
-    ...
-    operationId: pipelinesPresenterActionUploadSupplementaryFiles
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/pipelines/{id}/supplementary-files/{fileId}:
-  delete:
-    ...
-    operationId: pipelinesPresenterActionDeleteSupplementaryFile
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/pipelines/{id}/exercises:
-  get:
-    ...
-    operationId: pipelinesPresenterActionGetPipelineExercises
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/shadow-assignments/{id}:
-  get:
-    ...
-    operationId: shadowAssignmentsPresenterActionDetail
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  post:
-    ...
-    operationId: shadowAssignmentsPresenterActionUpdateDetail
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    requestBody:
-      content:
-        application/json:
-          schema:
-            ...
-            properties:
-              ...
-              localizedTexts:
-                ...
-+               items:
-+                 <empty object>
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  delete:
-    ...
-    operationId: shadowAssignmentsPresenterActionRemove
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/shadow-assignments/{id}/validate:
-  post:
-    ...
-    operationId: shadowAssignmentsPresenterActionValidate
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/shadow-assignments/{id}/create-points:
-  post:
-    ...
-    operationId: shadowAssignmentsPresenterActionCreatePoints
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/notifications/{id}:
-  post:
-    ...
-    operationId: notificationsPresenterActionUpdate
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    requestBody:
-      content:
-        application/json:
-          schema:
-            ...
-            properties:
-              groupsIds:
-                ...
-+               items:
-+                 <empty object>
-              ...
-              localizedTexts:
-                ...
-+               items:
-+                 <empty object>
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  delete:
-    ...
-    operationId: notificationsPresenterActionRemove
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/async-jobs/{id}:
-  get:
-    ...
-    operationId: asyncJobsPresenterActionDefault
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/async-jobs/{id}/abort:
-  post:
-    ...
-    operationId: asyncJobsPresenterActionAbort
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/plagiarism:
-  get:
-    ...
-    operationId: plagiarismPresenterActionListBatches
-    parameters:
-    -
-      name: detectionTool
-      ...
-      schema:
-        ...
-+       maxLength: 255
-+       minLength: 1
-    -
-      name: solutionId
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  post:
-    ...
-    operationId: plagiarismPresenterActionCreateBatch
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/plagiarism/{id}:
-  get:
-    ...
-    operationId: plagiarismPresenterActionBatchDetail
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  post:
-    ...
-    operationId: plagiarismPresenterActionUpdateBatch
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/plagiarism/{id}/{solutionId}:
-  get:
-    ...
-    operationId: plagiarismPresenterActionGetSimilarities
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  post:
-    ...
-    operationId: plagiarismPresenterActionAddSimilarities
-    parameters:
-    -
-      name: id
-      ...
-      schema:
-        ...
-+       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-    requestBody:
-      content:
-        application/json:
-          schema:
-            ...
-            properties:
-              ...
-              files:
-                ...
-+               items:
-+                 <empty object>
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/extensions/{extId}/{instanceId}:
-  get:
-    ...
-    operationId: extensionsPresenterActionUrl
-    parameters:
-    -
-      name: locale
-      ...
-      schema:
-        ...
-+       maxLength: 2
-+       minLength: 2
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/security/check:
-  post:
-    operationId: securityPresenterActionCheck
-    ...
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/login:
-  post:
-    ...
-    operationId: loginPresenterActionDefault
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/login/refresh:
-  post:
-    ...
-    operationId: loginPresenterActionRefresh
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/login/issue-restricted-token:
-  post:
-    ...
-    operationId: loginPresenterActionIssueRestrictedToken
-    requestBody:
-      content:
-        application/json:
-          schema:
-            ...
-            properties:
-              ...
-              scopes:
-                ...
-+               items:
-+                 <empty object>
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/login/takeover/{userId}:
-  post:
-    ...
-    operationId: loginPresenterActionTakeOver
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/login/{authenticatorName}:
-  post:
-    ...
-    operationId: loginPresenterActionExternal
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/broker/stats:
-  get:
-    ...
-    operationId: brokerPresenterActionStats
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/broker/freeze:
-  post:
-    ...
-    operationId: brokerPresenterActionFreeze
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/broker/unfreeze:
-  post:
-    ...
-    operationId: brokerPresenterActionUnfreeze
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/broker-reports/error:
-  post:
-    ...
-    operationId: brokerReportsPresenterActionError
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/broker-reports/job-status/{jobId}:
-  post:
-    ...
-    operationId: brokerReportsPresenterActionJobStatus
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/comments/{threadId}/comment/{commentId}/toggle:
-  post:
-    ...
-    operationId: commentsPresenterActionTogglePrivate
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/comments/{threadId}/comment/{commentId}/private:
-  post:
-    ...
-    operationId: commentsPresenterActionSetPrivate
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/comments/{threadId}/comment/{commentId}:
-  delete:
-    ...
-    operationId: commentsPresenterActionDelete
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/exercises:
-  get:
-    ...
-    operationId: exercisesPresenterActionDefault
-    parameters:
-    -
-      name: filters
-      ...
-      schema:
-        ...
-+       items:
-+         <empty object>
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  post:
-    ...
-    operationId: exercisesPresenterActionCreate
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/exercises/list:
-  post:
-    ...
-    operationId: exercisesPresenterActionListByIds
-    requestBody:
-      content:
-        application/json:
-          schema:
-            ...
-            properties:
-              ids:
-                ...
-+               items:
-+                 <empty object>
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/exercises/authors:
-  get:
-    ...
-    operationId: exercisesPresenterActionAuthors
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/exercises/tags:
-  get:
-    ...
-    operationId: exercisesPresenterActionAllTags
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/exercises/tags-stats:
-  get:
-    ...
-    operationId: exercisesPresenterActionTagsStats
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/exercise-assignments:
-  post:
-    ...
-    operationId: assignmentsPresenterActionCreate
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/groups:
-  get:
-    ...
-    operationId: groupsPresenterActionDefault
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-  post:
-    ...
-    operationId: groupsPresenterActionAddGroup
-    requestBody:
-      content:
-        application/json:
-          schema:
-            ...
-            properties:
-              ...
-              localizedTexts:
-                ...
-+               items:
-+                 <empty object>
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
-```diff
-/v1/groups/validate-add-group-data:
-  post:
-    ...
-    operationId: groupsPresenterActionValidateAddGroupData
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
-```
+### group_invitations_presenter_action_list
 ```diff
 /v1/groups/{groupId}/invitations:
   get:
@@ -3372,6 +1678,10 @@ This file should be updated regularly to make sure the tests reflect the latest 
       200:
 -       description: The data
 +       description: Placeholder response
+```
+### group_invitations_presenter_action_create
+```diff
+/v1/groups/{groupId}/invitations:
   post:
     ...
     operationId: groupInvitationsPresenterActionCreate
@@ -3380,6 +1690,51 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### group_invitations_presenter_action_remove
+```diff
+/v1/group-invitations/{id}:
+  delete:
+    operationId: groupInvitationsPresenterActionRemove
+    ...
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### group_invitations_presenter_action_default
+```diff
+/v1/group-invitations/{id}:
+  get:
+    ...
+    operationId: groupInvitationsPresenterActionDefault
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### group_invitations_presenter_action_update
+```diff
+/v1/group-invitations/{id}:
+  post:
+    ...
+    operationId: groupInvitationsPresenterActionUpdate
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### group_invitations_presenter_action_accept
+```diff
+/v1/group-invitations/{id}/accept:
+  post:
+    ...
+    operationId: groupInvitationsPresenterActionAccept
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### group_external_attributes_presenter_action_default
 ```diff
 /v1/group-attributes:
   get:
@@ -3390,6 +1745,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### group_external_attributes_presenter_action_add
 ```diff
 /v1/group-attributes/{groupId}:
   post:
@@ -3400,6 +1756,18 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### group_external_attributes_presenter_action_remove
+```diff
+/v1/group-attributes/{id}:
+  delete:
+    ...
+    operationId: groupExternalAttributesPresenterActionRemove
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### instances_presenter_action_default
 ```diff
 /v1/instances:
   get:
@@ -3409,6 +1777,10 @@ This file should be updated regularly to make sure the tests reflect the latest 
       200:
 -       description: The data
 +       description: Placeholder response
+```
+### instances_presenter_action_create_instance
+```diff
+/v1/instances:
   post:
     ...
     operationId: instancesPresenterActionCreateInstance
@@ -3417,6 +1789,73 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### instances_presenter_action_delete_instance
+```diff
+/v1/instances/{id}:
+  delete:
+    ...
+    operationId: instancesPresenterActionDeleteInstance
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### instances_presenter_action_detail
+```diff
+/v1/instances/{id}:
+  get:
+    ...
+    operationId: instancesPresenterActionDetail
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### instances_presenter_action_update_instance
+```diff
+/v1/instances/{id}:
+  post:
+    ...
+    operationId: instancesPresenterActionUpdateInstance
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### instances_presenter_action_licences
+```diff
+/v1/instances/{id}/licences:
+  get:
+    ...
+    operationId: instancesPresenterActionLicences
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### instances_presenter_action_create_licence
+```diff
+/v1/instances/{id}/licences:
+  post:
+    ...
+    operationId: instancesPresenterActionCreateLicence
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### instances_presenter_action_delete_licence
+```diff
+/v1/instances/licences/{licenceId}:
+  delete:
+    ...
+    operationId: instancesPresenterActionDeleteLicence
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### instances_presenter_action_update_licence
 ```diff
 /v1/instances/licences/{licenceId}:
   post:
@@ -3426,14 +1865,8 @@ This file should be updated regularly to make sure the tests reflect the latest 
       200:
 -       description: The data
 +       description: Placeholder response
-  delete:
-    ...
-    operationId: instancesPresenterActionDeleteLicence
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
 ```
+### reference_exercise_solutions_presenter_action_solutions
 ```diff
 /v1/reference-solutions/exercise/{exerciseId}:
   get:
@@ -3444,6 +1877,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### reference_exercise_solutions_presenter_action_pre_submit
 ```diff
 /v1/reference-solutions/exercise/{exerciseId}/pre-submit:
   post:
@@ -3464,6 +1898,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### reference_exercise_solutions_presenter_action_submit
 ```diff
 /v1/reference-solutions/exercise/{exerciseId}/submit:
   post:
@@ -3474,6 +1909,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### reference_exercise_solutions_presenter_action_resubmit_all
 ```diff
 /v1/reference-solutions/exercise/{exerciseId}/resubmit-all:
   post:
@@ -3484,6 +1920,18 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### reference_exercise_solutions_presenter_action_delete_reference_solution
+```diff
+/v1/reference-solutions/{solutionId}:
+  delete:
+    ...
+    operationId: referenceExerciseSolutionsPresenterActionDeleteReferenceSolution
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### reference_exercise_solutions_presenter_action_detail
 ```diff
 /v1/reference-solutions/{solutionId}:
   get:
@@ -3493,6 +1941,10 @@ This file should be updated regularly to make sure the tests reflect the latest 
       200:
 -       description: The data
 +       description: Placeholder response
+```
+### reference_exercise_solutions_presenter_action_update
+```diff
+/v1/reference-solutions/{solutionId}:
   post:
     ...
     operationId: referenceExerciseSolutionsPresenterActionUpdate
@@ -3500,14 +1952,19 @@ This file should be updated regularly to make sure the tests reflect the latest 
       200:
 -       description: The data
 +       description: Placeholder response
-  delete:
+```
+### reference_exercise_solutions_presenter_action_resubmit
+```diff
+/v1/reference-solutions/{id}/resubmit:
+  post:
     ...
-    operationId: referenceExerciseSolutionsPresenterActionDeleteReferenceSolution
+    operationId: referenceExerciseSolutionsPresenterActionResubmit
     responses:
       200:
 -       description: The data
 +       description: Placeholder response
 ```
+### reference_exercise_solutions_presenter_action_submissions
 ```diff
 /v1/reference-solutions/{solutionId}/submissions:
   get:
@@ -3518,6 +1975,18 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### reference_exercise_solutions_presenter_action_files
+```diff
+/v1/reference-solutions/{id}/files:
+  get:
+    ...
+    operationId: referenceExerciseSolutionsPresenterActionFiles
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### reference_exercise_solutions_presenter_action_download_solution_archive
 ```diff
 /v1/reference-solutions/{solutionId}/download-solution:
   get:
@@ -3528,6 +1997,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### reference_exercise_solutions_presenter_action_set_visibility
 ```diff
 /v1/reference-solutions/{solutionId}/visibility:
   post:
@@ -3538,6 +2008,18 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### reference_exercise_solutions_presenter_action_delete_submission
+```diff
+/v1/reference-solutions/submission/{submissionId}:
+  delete:
+    ...
+    operationId: referenceExerciseSolutionsPresenterActionDeleteSubmission
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### reference_exercise_solutions_presenter_action_submission
 ```diff
 /v1/reference-solutions/submission/{submissionId}:
   get:
@@ -3547,14 +2029,8 @@ This file should be updated regularly to make sure the tests reflect the latest 
       200:
 -       description: The data
 +       description: Placeholder response
-  delete:
-    ...
-    operationId: referenceExerciseSolutionsPresenterActionDeleteSubmission
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
 ```
+### reference_exercise_solutions_presenter_action_download_result_archive
 ```diff
 /v1/reference-solutions/submission/{submissionId}/download-result:
   get:
@@ -3565,6 +2041,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### reference_exercise_solutions_presenter_action_evaluation_score_config
 ```diff
 /v1/reference-solutions/submission/{submissionId}/score-config:
   get:
@@ -3575,6 +2052,117 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### assignment_solutions_presenter_action_delete_solution
+```diff
+/v1/assignment-solutions/{id}:
+  delete:
+    ...
+    operationId: assignmentSolutionsPresenterActionDeleteSolution
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### assignment_solutions_presenter_action_solution
+```diff
+/v1/assignment-solutions/{id}:
+  get:
+    ...
+    operationId: assignmentSolutionsPresenterActionSolution
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### assignment_solutions_presenter_action_update_solution
+```diff
+/v1/assignment-solutions/{id}:
+  post:
+    ...
+    operationId: assignmentSolutionsPresenterActionUpdateSolution
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### assignment_solutions_presenter_action_set_bonus_points
+```diff
+/v1/assignment-solutions/{id}/bonus-points:
+  post:
+    ...
+    operationId: assignmentSolutionsPresenterActionSetBonusPoints
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### assignment_solutions_presenter_action_submissions
+```diff
+/v1/assignment-solutions/{id}/submissions:
+  get:
+    ...
+    operationId: assignmentSolutionsPresenterActionSubmissions
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### assignment_solutions_presenter_action_set_flag
+```diff
+/v1/assignment-solutions/{id}/set-flag/{flag}:
+  post:
+    ...
+    operationId: assignmentSolutionsPresenterActionSetFlag
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### submit_presenter_action_resubmit
+```diff
+/v1/assignment-solutions/{id}/resubmit:
+  post:
+    ...
+    operationId: submitPresenterActionResubmit
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### assignment_solutions_presenter_action_files
+```diff
+/v1/assignment-solutions/{id}/files:
+  get:
+    ...
+    operationId: assignmentSolutionsPresenterActionFiles
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### assignment_solutions_presenter_action_download_solution_archive
+```diff
+/v1/assignment-solutions/{id}/download-solution:
+  get:
+    ...
+    operationId: assignmentSolutionsPresenterActionDownloadSolutionArchive
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### assignment_solutions_presenter_action_delete_submission
+```diff
+/v1/assignment-solutions/submission/{submissionId}:
+  delete:
+    ...
+    operationId: assignmentSolutionsPresenterActionDeleteSubmission
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### assignment_solutions_presenter_action_submission
 ```diff
 /v1/assignment-solutions/submission/{submissionId}:
   get:
@@ -3584,14 +2172,8 @@ This file should be updated regularly to make sure the tests reflect the latest 
       200:
 -       description: The data
 +       description: Placeholder response
-  delete:
-    ...
-    operationId: assignmentSolutionsPresenterActionDeleteSubmission
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
 ```
+### assignment_solutions_presenter_action_download_result_archive
 ```diff
 /v1/assignment-solutions/submission/{submissionId}/download-result:
   get:
@@ -3602,6 +2184,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### assignment_solutions_presenter_action_evaluation_score_config
 ```diff
 /v1/assignment-solutions/submission/{submissionId}/score-config:
   get:
@@ -3612,6 +2195,84 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### assignment_solution_reviews_presenter_action_remove
+```diff
+/v1/assignment-solutions/{id}/review:
+  delete:
+    ...
+    operationId: assignmentSolutionReviewsPresenterActionRemove
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### assignment_solution_reviews_presenter_action_default
+```diff
+/v1/assignment-solutions/{id}/review:
+  get:
+    ...
+    operationId: assignmentSolutionReviewsPresenterActionDefault
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### assignment_solution_reviews_presenter_action_update
+```diff
+/v1/assignment-solutions/{id}/review:
+  post:
+    ...
+    operationId: assignmentSolutionReviewsPresenterActionUpdate
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### assignment_solution_reviews_presenter_action_new_comment
+```diff
+/v1/assignment-solutions/{id}/review-comment:
+  post:
+    ...
+    operationId: assignmentSolutionReviewsPresenterActionNewComment
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### assignment_solution_reviews_presenter_action_delete_comment
+```diff
+/v1/assignment-solutions/{id}/review-comment/{commentId}:
+  delete:
+    ...
+    operationId: assignmentSolutionReviewsPresenterActionDeleteComment
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### assignment_solution_reviews_presenter_action_edit_comment
+```diff
+/v1/assignment-solutions/{id}/review-comment/{commentId}:
+  post:
+    ...
+    operationId: assignmentSolutionReviewsPresenterActionEditComment
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### assignment_solvers_presenter_action_default
+```diff
+/v1/assignment-solvers:
+  get:
+    ...
+    operationId: assignmentSolversPresenterActionDefault
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### submission_failures_presenter_action_default
 ```diff
 /v1/submission-failures:
   get:
@@ -3622,6 +2283,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### submission_failures_presenter_action_unresolved
 ```diff
 /v1/submission-failures/unresolved:
   get:
@@ -3632,6 +2294,29 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### submission_failures_presenter_action_detail
+```diff
+/v1/submission-failures/{id}:
+  get:
+    ...
+    operationId: submissionFailuresPresenterActionDetail
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### submission_failures_presenter_action_resolve
+```diff
+/v1/submission-failures/{id}/resolve:
+  post:
+    ...
+    operationId: submissionFailuresPresenterActionResolve
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### uploaded_files_presenter_action_start_partial
 ```diff
 /v1/uploaded-files/partial:
   post:
@@ -3642,6 +2327,106 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### uploaded_files_presenter_action_cancel_partial
+```diff
+/v1/uploaded-files/partial/{id}:
+  delete:
+    ...
+    operationId: uploadedFilesPresenterActionCancelPartial
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### uploaded_files_presenter_action_complete_partial
+```diff
+/v1/uploaded-files/partial/{id}:
+  post:
+    ...
+    operationId: uploadedFilesPresenterActionCompletePartial
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### uploaded_files_presenter_action_append_partial
+```diff
+/v1/uploaded-files/partial/{id}:
+  put:
+    ...
+    operationId: uploadedFilesPresenterActionAppendPartial
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### uploaded_files_presenter_action_upload
+```diff
+/v1/uploaded-files:
+  post:
+    ...
+    operationId: uploadedFilesPresenterActionUpload
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### uploaded_files_presenter_action_download_supplementary_file
+```diff
+/v1/uploaded-files/supplementary-file/{id}/download:
+  get:
+    ...
+    operationId: uploadedFilesPresenterActionDownloadSupplementaryFile
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### uploaded_files_presenter_action_detail
+```diff
+/v1/uploaded-files/{id}:
+  get:
+    ...
+    operationId: uploadedFilesPresenterActionDetail
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### uploaded_files_presenter_action_download
+```diff
+/v1/uploaded-files/{id}/download:
+  get:
+    ...
+    operationId: uploadedFilesPresenterActionDownload
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### uploaded_files_presenter_action_content
+```diff
+/v1/uploaded-files/{id}/content:
+  get:
+    ...
+    operationId: uploadedFilesPresenterActionContent
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### uploaded_files_presenter_action_digest
+```diff
+/v1/uploaded-files/{id}/digest:
+  get:
+    ...
+    operationId: uploadedFilesPresenterActionDigest
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### users_presenter_action_default
 ```diff
 /v1/users:
   get:
@@ -3659,6 +2444,10 @@ This file should be updated regularly to make sure the tests reflect the latest 
       200:
 -       description: The data
 +       description: Placeholder response
+```
+### registration_presenter_action_create_account
+```diff
+/v1/users:
   post:
     ...
     operationId: registrationPresenterActionCreateAccount
@@ -3667,6 +2456,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### registration_presenter_action_validate_registration_data
 ```diff
 /v1/users/validate-registration-data:
   post:
@@ -3677,6 +2467,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### users_presenter_action_list_by_ids
 ```diff
 /v1/users/list:
   post:
@@ -3697,6 +2488,18 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### user_calendars_presenter_action_expire_calendar
+```diff
+/v1/users/ical/{id}:
+  delete:
+    ...
+    operationId: userCalendarsPresenterActionExpireCalendar
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### user_calendars_presenter_action_default
 ```diff
 /v1/users/ical/{id}:
   get:
@@ -3706,14 +2509,8 @@ This file should be updated regularly to make sure the tests reflect the latest 
       200:
 -       description: The data
 +       description: Placeholder response
-  delete:
-    ...
-    operationId: userCalendarsPresenterActionExpireCalendar
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
 ```
+### registration_presenter_action_create_invitation
 ```diff
 /v1/users/invite:
   post:
@@ -3735,6 +2532,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### registration_presenter_action_accept_invitation
 ```diff
 /v1/users/accept-invitation:
   post:
@@ -3745,6 +2543,205 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### users_presenter_action_delete
+```diff
+/v1/users/{id}:
+  delete:
+    ...
+    operationId: usersPresenterActionDelete
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### users_presenter_action_detail
+```diff
+/v1/users/{id}:
+  get:
+    ...
+    operationId: usersPresenterActionDetail
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### users_presenter_action_update_profile
+```diff
+/v1/users/{id}:
+  post:
+    ...
+    operationId: usersPresenterActionUpdateProfile
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### users_presenter_action_invalidate_tokens
+```diff
+/v1/users/{id}/invalidate-tokens:
+  post:
+    ...
+    operationId: usersPresenterActionInvalidateTokens
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### users_presenter_action_groups
+```diff
+/v1/users/{id}/groups:
+  get:
+    ...
+    operationId: usersPresenterActionGroups
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### users_presenter_action_all_groups
+```diff
+/v1/users/{id}/groups/all:
+  get:
+    ...
+    operationId: usersPresenterActionAllGroups
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### users_presenter_action_instances
+```diff
+/v1/users/{id}/instances:
+  get:
+    ...
+    operationId: usersPresenterActionInstances
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### users_presenter_action_update_settings
+```diff
+/v1/users/{id}/settings:
+  post:
+    ...
+    operationId: usersPresenterActionUpdateSettings
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### users_presenter_action_update_ui_data
+```diff
+/v1/users/{id}/ui-data:
+  post:
+    ...
+    operationId: usersPresenterActionUpdateUiData
+    requestBody:
+      content:
+        application/json:
+          schema:
+            ...
+            properties:
+              uiData:
+                ...
++               items:
++                 <empty object>
+              ...
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### users_presenter_action_create_local_account
+```diff
+/v1/users/{id}/create-local:
+  post:
+    ...
+    operationId: usersPresenterActionCreateLocalAccount
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### users_presenter_action_set_role
+```diff
+/v1/users/{id}/role:
+  post:
+    ...
+    operationId: usersPresenterActionSetRole
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### users_presenter_action_remove_external_login
+```diff
+/v1/users/{id}/external-login/{service}:
+  delete:
+    ...
+    operationId: usersPresenterActionRemoveExternalLogin
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### users_presenter_action_update_external_login
+```diff
+/v1/users/{id}/external-login/{service}:
+  post:
+    ...
+    operationId: usersPresenterActionUpdateExternalLogin
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### user_calendars_presenter_action_user_calendars
+```diff
+/v1/users/{id}/calendar-tokens:
+  get:
+    ...
+    operationId: userCalendarsPresenterActionUserCalendars
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### user_calendars_presenter_action_create_calendar
+```diff
+/v1/users/{id}/calendar-tokens:
+  post:
+    ...
+    operationId: userCalendarsPresenterActionCreateCalendar
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### assignment_solution_reviews_presenter_action_pending
+```diff
+/v1/users/{id}/pending-reviews:
+  get:
+    ...
+    operationId: assignmentSolutionReviewsPresenterActionPending
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### assignment_solutions_presenter_action_review_requests
+```diff
+/v1/users/{id}/review-requests:
+  get:
+    ...
+    operationId: assignmentSolutionsPresenterActionReviewRequests
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### email_verification_presenter_action_email_verification
 ```diff
 /v1/email-verification/verify:
   post:
@@ -3755,6 +2752,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### email_verification_presenter_action_resend_verification_email
 ```diff
 /v1/email-verification/resend:
   post:
@@ -3765,6 +2763,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### forgotten_password_presenter_action_default
 ```diff
 /v1/forgotten-password:
   post:
@@ -3775,6 +2774,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### forgotten_password_presenter_action_change
 ```diff
 /v1/forgotten-password/change:
   post:
@@ -3785,6 +2785,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### forgotten_password_presenter_action_validate_password_strength
 ```diff
 /v1/forgotten-password/validate-password-strength:
   post:
@@ -3795,6 +2796,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### runtime_environments_presenter_action_default
 ```diff
 /v1/runtime-environments:
   get:
@@ -3805,6 +2807,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### hardware_groups_presenter_action_default
 ```diff
 /v1/hardware-groups:
   get:
@@ -3815,6 +2818,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### pipelines_presenter_action_default
 ```diff
 /v1/pipelines:
   get:
@@ -3832,6 +2836,10 @@ This file should be updated regularly to make sure the tests reflect the latest 
       200:
 -       description: The data
 +       description: Placeholder response
+```
+### pipelines_presenter_action_create_pipeline
+```diff
+/v1/pipelines:
   post:
     ...
     operationId: pipelinesPresenterActionCreatePipeline
@@ -3840,6 +2848,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### pipelines_presenter_action_get_default_boxes
 ```diff
 /v1/pipelines/boxes:
   get:
@@ -3850,6 +2859,128 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### pipelines_presenter_action_fork_pipeline
+```diff
+/v1/pipelines/{id}/fork:
+  post:
+    ...
+    operationId: pipelinesPresenterActionForkPipeline
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### pipelines_presenter_action_remove_pipeline
+```diff
+/v1/pipelines/{id}:
+  delete:
+    ...
+    operationId: pipelinesPresenterActionRemovePipeline
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### pipelines_presenter_action_get_pipeline
+```diff
+/v1/pipelines/{id}:
+  get:
+    ...
+    operationId: pipelinesPresenterActionGetPipeline
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### pipelines_presenter_action_update_pipeline
+```diff
+/v1/pipelines/{id}:
+  post:
+    ...
+    operationId: pipelinesPresenterActionUpdatePipeline
+    requestBody:
+      content:
+        application/json:
+          schema:
+            ...
+            properties:
+              ...
+              parameters:
+                ...
++               items:
++                 <empty object>
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### pipelines_presenter_action_update_runtime_environments
+```diff
+/v1/pipelines/{id}/runtime-environments:
+  post:
+    ...
+    operationId: pipelinesPresenterActionUpdateRuntimeEnvironments
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### pipelines_presenter_action_validate_pipeline
+```diff
+/v1/pipelines/{id}/validate:
+  post:
+    ...
+    operationId: pipelinesPresenterActionValidatePipeline
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### pipelines_presenter_action_get_supplementary_files
+```diff
+/v1/pipelines/{id}/supplementary-files:
+  get:
+    ...
+    operationId: pipelinesPresenterActionGetSupplementaryFiles
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### pipelines_presenter_action_upload_supplementary_files
+```diff
+/v1/pipelines/{id}/supplementary-files:
+  post:
+    ...
+    operationId: pipelinesPresenterActionUploadSupplementaryFiles
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### pipelines_presenter_action_delete_supplementary_file
+```diff
+/v1/pipelines/{id}/supplementary-files/{fileId}:
+  delete:
+    ...
+    operationId: pipelinesPresenterActionDeleteSupplementaryFile
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### pipelines_presenter_action_get_pipeline_exercises
+```diff
+/v1/pipelines/{id}/exercises:
+  get:
+    ...
+    operationId: pipelinesPresenterActionGetPipelineExercises
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### sis_presenter_action_status
 ```diff
 /v1/extensions/sis/status/:
   get:
@@ -3859,6 +2990,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### sis_presenter_action_get_terms
 ```diff
 /v1/extensions/sis/terms/:
   get:
@@ -3868,6 +3000,10 @@ This file should be updated regularly to make sure the tests reflect the latest 
       200:
 -       description: The data
 +       description: Placeholder response
+```
+### sis_presenter_action_register_term
+```diff
+/v1/extensions/sis/terms/:
   post:
     ...
     operationId: sisPresenterActionRegisterTerm
@@ -3876,6 +3012,18 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### sis_presenter_action_delete_term
+```diff
+/v1/extensions/sis/terms/{id}:
+  delete:
+    ...
+    operationId: sisPresenterActionDeleteTerm
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### sis_presenter_action_edit_term
 ```diff
 /v1/extensions/sis/terms/{id}:
   post:
@@ -3885,14 +3033,8 @@ This file should be updated regularly to make sure the tests reflect the latest 
       200:
 -       description: The data
 +       description: Placeholder response
-  delete:
-    ...
-    operationId: sisPresenterActionDeleteTerm
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
 ```
+### sis_presenter_action_subscribed_courses
 ```diff
 /v1/extensions/sis/users/{userId}/subscribed-groups/{year}/{term}/as-student:
   get:
@@ -3903,6 +3045,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### sis_presenter_action_supervised_courses
 ```diff
 /v1/extensions/sis/users/{userId}/supervised-courses/{year}/{term}:
   get:
@@ -3913,6 +3056,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### sis_presenter_action_possible_parents
 ```diff
 /v1/extensions/sis/remote-courses/{courseId}/possible-parents:
   get:
@@ -3923,6 +3067,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### sis_presenter_action_create_group
 ```diff
 /v1/extensions/sis/remote-courses/{courseId}/create:
   post:
@@ -3933,6 +3078,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### sis_presenter_action_bind_group
 ```diff
 /v1/extensions/sis/remote-courses/{courseId}/bind:
   post:
@@ -3943,6 +3089,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### sis_presenter_action_unbind_group
 ```diff
 /v1/extensions/sis/remote-courses/{courseId}/bindings/{groupId}:
   delete:
@@ -3953,6 +3100,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### emails_presenter_action_default
 ```diff
 /v1/emails:
   post:
@@ -3963,6 +3111,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### emails_presenter_action_send_to_supervisors
 ```diff
 /v1/emails/supervisors:
   post:
@@ -3973,6 +3122,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### emails_presenter_action_send_to_regular_users
 ```diff
 /v1/emails/regular-users:
   post:
@@ -3983,6 +3133,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### emails_presenter_action_send_to_group_members
 ```diff
 /v1/emails/groups/{groupId}:
   post:
@@ -3993,6 +3144,51 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### shadow_assignments_presenter_action_remove
+```diff
+/v1/shadow-assignments/{id}:
+  delete:
+    ...
+    operationId: shadowAssignmentsPresenterActionRemove
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### shadow_assignments_presenter_action_detail
+```diff
+/v1/shadow-assignments/{id}:
+  get:
+    ...
+    operationId: shadowAssignmentsPresenterActionDetail
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### shadow_assignments_presenter_action_update_detail
+```diff
+/v1/shadow-assignments/{id}:
+  post:
+    ...
+    operationId: shadowAssignmentsPresenterActionUpdateDetail
+    requestBody:
+      content:
+        application/json:
+          schema:
+            ...
+            properties:
+              ...
+              localizedTexts:
+                ...
++               items:
++                 <empty object>
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### shadow_assignments_presenter_action_create
 ```diff
 /v1/shadow-assignments:
   post:
@@ -4003,6 +3199,40 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### shadow_assignments_presenter_action_validate
+```diff
+/v1/shadow-assignments/{id}/validate:
+  post:
+    ...
+    operationId: shadowAssignmentsPresenterActionValidate
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### shadow_assignments_presenter_action_create_points
+```diff
+/v1/shadow-assignments/{id}/create-points:
+  post:
+    ...
+    operationId: shadowAssignmentsPresenterActionCreatePoints
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### shadow_assignments_presenter_action_remove_points
+```diff
+/v1/shadow-assignments/points/{pointsId}:
+  delete:
+    ...
+    operationId: shadowAssignmentsPresenterActionRemovePoints
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### shadow_assignments_presenter_action_update_points
 ```diff
 /v1/shadow-assignments/points/{pointsId}:
   post:
@@ -4012,14 +3242,8 @@ This file should be updated regularly to make sure the tests reflect the latest 
       200:
 -       description: The data
 +       description: Placeholder response
-  delete:
-    ...
-    operationId: shadowAssignmentsPresenterActionRemovePoints
-    responses:
-      200:
--       description: The data
-+       description: Placeholder response
 ```
+### notifications_presenter_action_default
 ```diff
 /v1/notifications:
   get:
@@ -4037,6 +3261,10 @@ This file should be updated regularly to make sure the tests reflect the latest 
       200:
 -       description: The data
 +       description: Placeholder response
+```
+### notifications_presenter_action_create
+```diff
+/v1/notifications:
   post:
     ...
     operationId: notificationsPresenterActionCreate
@@ -4060,6 +3288,7 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### notifications_presenter_action_all
 ```diff
 /v1/notifications/all:
   get:
@@ -4070,6 +3299,44 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### notifications_presenter_action_remove
+```diff
+/v1/notifications/{id}:
+  delete:
+    ...
+    operationId: notificationsPresenterActionRemove
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### notifications_presenter_action_update
+```diff
+/v1/notifications/{id}:
+  post:
+    ...
+    operationId: notificationsPresenterActionUpdate
+    requestBody:
+      content:
+        application/json:
+          schema:
+            ...
+            properties:
+              groupsIds:
+                ...
++               items:
++                 <empty object>
+              ...
+              localizedTexts:
+                ...
++               items:
++                 <empty object>
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### worker_files_presenter_action_download_supplementary_file
 ```diff
 /v1/worker-files/supplementary-file/{hash}:
   get:
@@ -4080,6 +3347,18 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### async_jobs_presenter_action_default
+```diff
+/v1/async-jobs/{id}:
+  get:
+    ...
+    operationId: asyncJobsPresenterActionDefault
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### async_jobs_presenter_action_list
 ```diff
 /v1/async-jobs:
   get:
@@ -4090,6 +3369,18 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### async_jobs_presenter_action_abort
+```diff
+/v1/async-jobs/{id}/abort:
+  post:
+    ...
+    operationId: asyncJobsPresenterActionAbort
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### async_jobs_presenter_action_ping
 ```diff
 /v1/async-jobs/ping:
   post:
@@ -4100,6 +3391,95 @@ This file should be updated regularly to make sure the tests reflect the latest 
 -       description: The data
 +       description: Placeholder response
 ```
+### plagiarism_presenter_action_list_batches
+```diff
+/v1/plagiarism:
+  get:
+    ...
+    operationId: plagiarismPresenterActionListBatches
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### plagiarism_presenter_action_create_batch
+```diff
+/v1/plagiarism:
+  post:
+    ...
+    operationId: plagiarismPresenterActionCreateBatch
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### plagiarism_presenter_action_batch_detail
+```diff
+/v1/plagiarism/{id}:
+  get:
+    ...
+    operationId: plagiarismPresenterActionBatchDetail
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### plagiarism_presenter_action_update_batch
+```diff
+/v1/plagiarism/{id}:
+  post:
+    ...
+    operationId: plagiarismPresenterActionUpdateBatch
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### plagiarism_presenter_action_get_similarities
+```diff
+/v1/plagiarism/{id}/{solutionId}:
+  get:
+    ...
+    operationId: plagiarismPresenterActionGetSimilarities
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### plagiarism_presenter_action_add_similarities
+```diff
+/v1/plagiarism/{id}/{solutionId}:
+  post:
+    ...
+    operationId: plagiarismPresenterActionAddSimilarities
+    requestBody:
+      content:
+        application/json:
+          schema:
+            ...
+            properties:
+              ...
+              files:
+                ...
++               items:
++                 <empty object>
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### extensions_presenter_action_url
+```diff
+/v1/extensions/{extId}/{instanceId}:
+  get:
+    ...
+    operationId: extensionsPresenterActionUrl
+    responses:
+      200:
+-       description: The data
++       description: Placeholder response
+```
+### extensions_presenter_action_token
 ```diff
 /v1/extensions/{extId}:
   post:
