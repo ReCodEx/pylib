@@ -298,6 +298,9 @@ def new_changes(old_swagger: dict, new_swagger: dict) -> bool:
 
     return len(find_different_paths(old_swagger, new_swagger)) > 0
 
+def get_operation_id(old_swagger: dict, new_swagger: dict, path: str):
+    pass
+
 def get_diff_lines(old_swagger: dict, new_swagger: dict) -> list[str]:
     """Returns a list of lines representing the diff in markdown format
     """
@@ -305,10 +308,38 @@ def get_diff_lines(old_swagger: dict, new_swagger: dict) -> list[str]:
     lines = []
     paths = find_different_paths(old_swagger, new_swagger)
     for path in paths:
-        lines.append("```diff")
-        diff = to_yaml_diff(path, old_swagger["paths"].get(path, {}), new_swagger["paths"].get(path, {}), 0)
-        lines += diff.get_print_lines()
-        lines.append("```")
+        old_content: dict = old_swagger["paths"].get(path, {})
+        new_content: dict = new_swagger["paths"].get(path, {})
+        
+        # aggregate all endpoint methods used
+        method_set: set[str] = set()
+        for old_method in old_content.keys():
+            method_set.add(old_method)
+        for new_method in new_content.keys():
+            method_set.add(new_method)
+
+        for method in method_set:
+            old_method_content: dict = old_content.get(method, {})
+            new_method_content: dict = new_content.get(method, {})
+
+            diff = LineStatus()
+            added = False
+            removed = False
+            if path in old_swagger["paths"] and path in new_swagger["paths"]:
+                print_indented_kept(f"{path}:", 0, diff)
+            elif path in new_swagger["paths"]:
+                print_indented_added(f"{path}:", 0, diff)
+                added = True
+            else:
+                print_indented_removed(f"{path}:", 0, diff)
+                removed = True
+
+            nested_diff = handle_dicts(old_method_content, new_method_content, 2)
+            diff.merge(nested_diff, set_added=added, set_removed=removed)
+
+            lines.append("```diff")
+            lines += diff.get_print_lines()
+            lines.append("```")
 
     for i in range(len(lines)):
         lines[i] += "\n"

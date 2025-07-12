@@ -36,15 +36,46 @@ def get_client(api_url: str, username: str, password: str, verbose=False) -> Cli
 
     return get_client_from_user_context(user_context)
 
+def get_client_from_session() -> Client:
+    """Creates a client object from a user context file. If the file is missing or expired,
+    an exception will be thrown.
+
+    Raises:
+        Exception: Thrown when the user context file is missing or expired.
+
+    Returns:
+        Client: Returns a client object.
+    """
+
+    user_context = load_user_context()
+    if user_context == None:
+        raise Exception("No user context (session) file was found.")
+
+    if user_context.is_token_expired:
+        raise Exception("The session token expired.")
+    
+    return get_client_from_user_context(user_context)
+
 def get_client_from_user_context(user_context: UserContext) -> Client:
     """Creates a client object and refreshes the API token if it almost expired.
 
     Args:
         user_context (UserContext): The user context containing the endpoint URL and API token.
 
+    Raises:
+        Exception: Thrown when the session expired, the token was not provided, or the API URL was missing.
+
     Returns:
         Client: Returns a client object.
     """
+
+    if user_context.is_token_expired:
+        raise Exception("The session token expired.")
+    if user_context.api_token == None:
+        raise Exception("No session token was not found in the user context.")
+    if user_context.api_url == None:
+        raise Exception("No API URL was found in the user context.")
+
 
     client = Client(user_context.api_token, user_context.api_url)
 
@@ -66,6 +97,35 @@ def load_user_context() -> UserContext | None:
     if not context_path.exists():
         return None
     return UserContext.load(context_path)
+
+def create_session_from_credentials(api_url: str, username: str, password: str, verbose=False):
+    """Retrieves an API token and creates a user context file from the provided credentials.
+
+    Args:
+        api_url (str): The URL of the API.
+        username (str): ReCodEx username.
+        password (str): ReCodEx password.
+        verbose (bool, optional): Whether status messages should be printed to stdin. Defaults to False.
+    """
+
+    __create_user_context(api_url, username, password, verbose)
+
+def create_session_from_token(api_url: str, api_token: str, verbose=False):
+    """Retrieves an API token and creates a user context file from the provided credentials.
+
+    Args:
+        api_url (str): The URL of the API.
+        api_token (str): Authentication token for ReCodEx.
+        verbose (bool, optional): Whether status messages should be printed to stdin. Defaults to False.
+    """
+
+    user_context = UserContext(api_url, api_token)
+    if user_context.is_token_expired:
+        raise Exception("The session token expired.")
+
+    user_context.store(context_path)
+    if verbose:
+        print(f"Login token stored at: {context_path}")
 
 def __create_user_context(api_url: str, username: str, password: str, verbose=False) -> UserContext:
     """Retrieves an API token and creates a user context file from the provided credentials.

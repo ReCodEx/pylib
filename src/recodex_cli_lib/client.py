@@ -16,7 +16,7 @@ class Client:
     Automatically handles request validation based on the current swagger specification file.
     """
 
-    def __init__(self, token: str, host: str):
+    def __init__(self, token: str, api_url: str):
         """
         Args:
             token (str): The JWT token used for authentication.
@@ -25,7 +25,7 @@ class Client:
 
         # initialize generated classes
         config = Configuration()
-        config.host = host
+        config.host = api_url
         self.generated_client = ApiClient(config, "Authorization", f"Bearer {token}")
         self.generated_api = DefaultApi(self.generated_client)
 

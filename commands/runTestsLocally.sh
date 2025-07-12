@@ -13,3 +13,6 @@ fi
 source venv/bin/activate
 rm ~/.local/share/recodex/context.yaml
 python3 -m tests.testClasses
+
+# remove the testing login token
+rm ~/.local/share/recodex/context.yaml

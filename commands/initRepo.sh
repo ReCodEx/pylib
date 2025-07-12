@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script is intented for the initial setup of the repository.
+# This script is intended for the initial setup of the repository.
 # It will clone the swagger-codegen repository, install it, generate code, and use
 # the swagger.yaml file used for testing (no other swagger is available).
 # For regenerating the code from new swagger.yaml files, use the replaceGenerated.sh script instead.
@@ -45,3 +45,11 @@ sed -i 's/\bswagger_client\b/..swagger_client/g' src/recodex_cli_lib/generated/s
 sed -i 's/\bswagger_client\b/...swagger_client/g' src/recodex_cli_lib/generated/swagger_client/api/__init__.py
 sed -i 's/\bswagger_client\b/...swagger_client/g' src/recodex_cli_lib/generated/swagger_client/api/default_api.py
 sed -i 's/\bswagger_client\b/...swagger_client/g' src/recodex_cli_lib/generated/swagger_client/models/__init__.py
+
+# set up venv
+if ! test -d ./venv; then
+  echo "Initializing Python venv"
+  python3.11 -m venv venv
+  ./venv/bin/pip install -r requirements.txt
+  ./venv/bin/pip install -e .
+fi

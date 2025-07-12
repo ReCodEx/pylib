@@ -19,7 +19,7 @@ class ClientResponse():
         return json.loads(self.data)
     
     def get_parsed_data(self) -> dict | bool:
-        """Parses response payload as a JSON string.
+        """Parses response payload and returns a dictionary or False if the parsing failed.
 
         Returns:
             dict|bool: A dictionary constructed from the payload, or False if the data is not in JSON format.
