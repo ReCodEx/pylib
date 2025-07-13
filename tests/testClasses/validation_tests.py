@@ -1,13 +1,11 @@
-import unittest
 from jsonschema.exceptions import ValidationError
 
-from recodex_cli_lib.client_factory import get_client
-from recodex_cli_lib.helpers.file_upload_helper import upload
 from recodex_cli_lib.generated.swagger_client.api.default_api import DefaultApi
 
 from .test_class_base import TestClassBase
 
 from ..utils import constants
+
 
 class ValidationTests(TestClassBase):
     def test_invalid_body(self):

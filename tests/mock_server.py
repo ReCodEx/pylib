@@ -4,6 +4,7 @@ import logging
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
+
 def create_app():
     app = Flask(__name__)
 

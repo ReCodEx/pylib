@@ -6,10 +6,11 @@ from recodex_cli_lib.client_factory import get_client
 
 from ..mock_server import create_app
 
+
 class TestClassBase(unittest.TestCase):
     PORT = 8081
     SERVER_URL = f"http://localhost:{PORT}"
-    flask_app = create_app() # use the global server handle
+    flask_app = create_app()  # use the global server handle
 
     @classmethod
     def setUpClass(cls):

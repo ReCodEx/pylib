@@ -1,9 +1,7 @@
-import os
-
 import jsonschema.exceptions
-from prance import ResolvingParser
 import jsonschema
 from jsonschema import validate
+
 
 class SwaggerValidator:
     """Class used to validate requests against a swagger schema.
@@ -13,7 +11,7 @@ class SwaggerValidator:
         # skip validation if the endpoint does not expect any
         if "parameters" not in endpoint_definition:
             return
-        
+
         param_defs = endpoint_definition["parameters"]
         for param_def in param_defs:
             # check if correct method
@@ -47,7 +45,7 @@ class SwaggerValidator:
         # skip if there is no body definition
         if "requestBody" not in endpoint_definition:
             return
-      
+
         content = endpoint_definition["requestBody"]["content"]
         # validate json bodies, do not validate uploaded files
         if "application/json" in content:
@@ -68,7 +66,7 @@ class SwaggerValidator:
         self.__validate_params(endpoint_definition, "path", path_params)
         self.__validate_params(endpoint_definition, "query", query_params)
 
-        # convert generated body objects to a dict    
+        # convert generated body objects to a dict
         if type(body) is dict:
             body_dict = body
         else:

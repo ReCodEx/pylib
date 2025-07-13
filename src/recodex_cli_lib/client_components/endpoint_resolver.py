@@ -7,6 +7,7 @@ from ..generated.swagger_client import DefaultApi
 from ..generated.swagger_client.rest import ApiException
 from ..client_components.alias_container import AliasContainer
 
+
 class EndpointResolver:
     """Class that converts endpoint presenter and action names or their aliases to a callback.
     """
@@ -22,7 +23,7 @@ class EndpointResolver:
         self.__init_definitions()
 
         # init the alias container and add user aliases
-        self.__init_aliases()        
+        self.__init_aliases()
 
     def __get_spec_path(self):
         # the swagger is located in the 'generated' folder
@@ -33,7 +34,6 @@ class EndpointResolver:
         filepath = self.__get_spec_path()
         parser = ResolvingParser(filepath, backend='openapi-spec-validator')
         self.spec = parser.specification
-
 
     def __load_user_aliases(self):
         dirname = os.path.dirname(__file__)
@@ -49,7 +49,7 @@ class EndpointResolver:
             for method, method_body in path_body.items():
                 method_body["method"] = method
 
-                # add snake case names used by the endpoint functions                
+                # add snake case names used by the endpoint functions
                 if "parameters" in method_body:
                     param_defs = method_body["parameters"]
                     for param_def in param_defs:
@@ -100,7 +100,7 @@ class EndpointResolver:
 
         operation_id = self.alias_container.get_operation_id(presenter, action)
         endpoint_callback = getattr(generated_api, operation_id, None)
-        if endpoint_callback == None:
+        if endpoint_callback is None:
             raise ApiException(500, f"Endpoint {operation_id} not found.")
         return endpoint_callback
 
@@ -117,7 +117,7 @@ class EndpointResolver:
 
         operation_id = self.alias_container.get_operation_id(presenter, action)
         return self.definitions[operation_id]
-    
+
     def endpoint_has_body(self, presenter: str, action: str) -> bool:
         """Returns whether an endpoint request expects a body.
 
@@ -130,7 +130,7 @@ class EndpointResolver:
         """
         definition = self.get_endpoint_definition(presenter, action)
         return "requestBody" in definition
-    
+
     def get_endpoint_params(self, presenter: str, action: str, method: str) -> list[dict]:
         """Returns a list of endpoint parameters matching the selected method.
 
@@ -146,7 +146,7 @@ class EndpointResolver:
 
         if "parameters" not in definition:
             return []
-        
+
         # filter params by method
         param_defs_filtered = []
         param_defs = definition["parameters"]
@@ -155,7 +155,7 @@ class EndpointResolver:
                 param_defs_filtered.append(param_def)
 
         return param_defs_filtered
-    
+
     def get_path_params(self, presenter: str, action: str) -> list[dict]:
         """Returns a list of endpoint path parameters.
 
@@ -167,8 +167,8 @@ class EndpointResolver:
             list[dict]: Returns a list of endpoint path parameters.
         """
         return self.get_endpoint_params(presenter, action, 'path')
-    
-    def get_path_param(self, presenter: str, action: str, param_name: str) -> dict|None:
+
+    def get_path_param(self, presenter: str, action: str, param_name: str) -> dict | None:
         """Returns a specific endpoint path parameter or None if not found.
 
         Args:
@@ -184,7 +184,7 @@ class EndpointResolver:
             if path_param["name"] == param_name or path_param["python_name"] == param_name:
                 return path_param
         return None
-    
+
     def get_query_params(self, presenter: str, action: str) -> list[dict]:
         """Returns a list of endpoint query parameters.
 
@@ -197,7 +197,7 @@ class EndpointResolver:
         """
         return self.get_endpoint_params(presenter, action, 'query')
 
-    def get_query_param(self, presenter: str, action: str, param_name: str) -> dict|None:
+    def get_query_param(self, presenter: str, action: str, param_name: str) -> dict | None:
         """Returns a specific endpoint query parameter or None if not found.
 
         Args:
@@ -221,7 +221,7 @@ class EndpointResolver:
             list[str]: Returns a list of presenters in snake case without the '_presenter' suffix.
         """
         return self.alias_container.get_presenters()
-    
+
     def get_actions(self, presenter) -> list[str]:
         """Returns a list of actions in snake case without the 'action_' prefix.
 

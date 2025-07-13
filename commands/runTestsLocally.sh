@@ -1,6 +1,6 @@
 # Runs the CI/CD tests locally.
 # This will invalidate any existing ReCodEx session you have (by deleting the context.yaml file),
-# in case you want to login into ReCodEx later, you will have to detele this file first
+# in case you want to login into ReCodEx later, you will have to delete this file first
 # by running: rm ~/.local/share/recodex/context.yaml
 
 if ! test -d ./venv; then

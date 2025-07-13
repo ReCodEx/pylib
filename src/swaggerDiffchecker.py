@@ -6,13 +6,14 @@ from pathlib import Path
 
 from recodex_cli_lib.helpers.utils import camel_case_to_snake_case
 
+
 class LineStatus:
     """Class that represents the diff lines of an object or list.
     Also holds whether the object introduced some changes on any level of nesting.
     """
 
     def __init__(self):
-        self.lines: list[list|str] = []
+        self.lines: list[list | str] = []
         self.changed: bool = False
 
     def merge(self, other: 'LineStatus', set_added: bool = False, set_removed: bool = False):
@@ -39,7 +40,7 @@ class LineStatus:
 
         self.__print(self.lines)
 
-    def __print(self, lines: list[list|str]):
+    def __print(self, lines: list[list | str]):
         for line in lines:
             if isinstance(line, str):
                 print(line)
@@ -54,7 +55,7 @@ class LineStatus:
         self.__get_print_lines(self.lines, print_lines)
         return print_lines
 
-    def __get_print_lines(self, lines: list[list|str], print_lines: list[str]):
+    def __get_print_lines(self, lines: list[list | str], print_lines: list[str]):
         for line in lines:
             if isinstance(line, str):
                 print_lines.append(line)
@@ -70,6 +71,7 @@ class LineStatus:
             else:
                 self.__set_line_changed(lines[i], diff_char)
 
+
 def read_swagger(path: str):
     if not os.path.exists(path):
         raise Exception(f"The path '{path}' does not point to a file.")
@@ -78,9 +80,11 @@ def read_swagger(path: str):
         content = yaml.safe_load(file)
         return content
 
+
 def find_different_paths(old_swagger: dict, new_swagger: dict):
     diff = DeepDiff(old_swagger["paths"], new_swagger["paths"])
     return diff.affected_root_keys
+
 
 def split_dict(d: dict):
     literals = []
@@ -91,6 +95,7 @@ def split_dict(d: dict):
         else:
             literals.append(key)
     return (literals, objects)
+
 
 def split_keys(old_keys: list[str], new_keys: list[str], old_dict: dict, new_dict: dict):
     key_stats = {}
@@ -105,6 +110,7 @@ def split_keys(old_keys: list[str], new_keys: list[str], old_dict: dict, new_dic
         if key not in old_keys:
             key_stats[key] = "added"
     return key_stats
+
 
 def split_parameters(old_parameters: list[dict], new_parameters: list[dict]):
     old_names = []
@@ -125,6 +131,7 @@ def split_parameters(old_parameters: list[dict], new_parameters: list[dict]):
             param_stats[name] = "added"
     return param_stats
 
+
 def split_lists(old_list: list, new_list: list):
     removed = []
     added = []
@@ -141,16 +148,20 @@ def split_lists(old_list: list, new_list: list):
 
     return (removed, added, kept)
 
+
 def print_indented_kept(line: str, indentation: int, diff: LineStatus):
     diff.lines.append(" " * (indentation + 2) + line)
+
 
 def print_indented_added(line: str, indentation: int, diff: LineStatus):
     diff.lines.append("+" + " " * (indentation + 1) + line)
     diff.changed = True
 
+
 def print_indented_removed(line: str, indentation: int, diff: LineStatus):
     diff.lines.append("-" + " " * (indentation + 1) + line)
     diff.changed = True
+
 
 def get_param(params: list[dict], name: str):
     for param in params:
@@ -158,7 +169,8 @@ def get_param(params: list[dict], name: str):
             return param
     raise Exception(f"Parameter '{name}' not found")
 
-def to_yaml_diff(label: str, old_obj: dict|list, new_obj: dict|list, indentation: int) -> LineStatus:
+
+def to_yaml_diff(label: str, old_obj: dict | list, new_obj: dict | list, indentation: int) -> LineStatus:
     diff = LineStatus()
     added = False
     removed = False
@@ -182,11 +194,12 @@ def to_yaml_diff(label: str, old_obj: dict|list, new_obj: dict|list, indentation
         nested_diff = handle_dicts(old_obj, new_obj, indentation)
 
     if (not nested_diff.changed) and ((not added) and (not removed)):
-        print_indented_kept(f"...", indentation, diff)
+        print_indented_kept("...", indentation, diff)
     else:
         diff.merge(nested_diff, set_added=added, set_removed=removed)
 
     return diff
+
 
 def handle_lists(label: str, old_list: list, new_list: list, indentation: int) -> LineStatus:
     diff = LineStatus()
@@ -232,6 +245,7 @@ def handle_lists(label: str, old_list: list, new_list: list, indentation: int) -
 
     return diff
 
+
 def handle_dicts(old_dict: dict, new_dict: dict, indentation: int) -> LineStatus:
     diff = LineStatus()
 
@@ -254,7 +268,7 @@ def handle_dicts(old_dict: dict, new_dict: dict, indentation: int) -> LineStatus
                 print_indented_kept(f"{key}: {old_dict[key]}", indentation, diff)
             # replace kept parameters with an ellipsis
             elif not some_kept:
-                print_indented_kept(f"...", indentation, diff)
+                print_indented_kept("...", indentation, diff)
                 some_kept = True
     for key, status in key_stats.items():
         if status == "removed":
@@ -277,7 +291,7 @@ def handle_dicts(old_dict: dict, new_dict: dict, indentation: int) -> LineStatus
             # if the nested object holds no changes, replace it with an ellipsis
             if not nested_diff.changed:
                 if not some_kept:
-                    print_indented_kept(f"...", indentation, diff)
+                    print_indented_kept("...", indentation, diff)
                     some_kept = True
             else:
                 diff.merge(nested_diff)
@@ -294,16 +308,19 @@ def handle_dicts(old_dict: dict, new_dict: dict, indentation: int) -> LineStatus
 
     return diff
 
+
 def new_changes(old_swagger: dict, new_swagger: dict) -> bool:
     """Returns whether there are some changes in the swaggers.
     """
 
     return len(find_different_paths(old_swagger, new_swagger)) > 0
 
+
 def get_operation_id(old_method_content: dict, new_method_content: dict):
     if "operationId" in new_method_content:
         return new_method_content["operationId"]
     return old_method_content["operationId"]
+
 
 def get_diff_lines(old_swagger: dict, new_swagger: dict) -> list[str]:
     """Returns a list of lines representing the diff in markdown format
@@ -314,7 +331,7 @@ def get_diff_lines(old_swagger: dict, new_swagger: dict) -> list[str]:
     for path in paths:
         old_content: dict = old_swagger["paths"].get(path, {})
         new_content: dict = new_swagger["paths"].get(path, {})
-        
+
         # aggregate all endpoint methods used
         method_set: set[str] = set()
         for old_method in old_content.keys():
@@ -344,7 +361,7 @@ def get_diff_lines(old_swagger: dict, new_swagger: dict) -> list[str]:
             operation_id = get_operation_id(old_method_content, new_method_content)
             operation_id = camel_case_to_snake_case(operation_id)
 
-            lines.append (f"### {operation_id}")
+            lines.append(f"### {operation_id}")
             lines.append("```diff")
             lines += diff.get_print_lines()
             lines.append("```")
@@ -353,6 +370,7 @@ def get_diff_lines(old_swagger: dict, new_swagger: dict) -> list[str]:
         lines[i] += "\n"
 
     return lines
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
@@ -372,8 +390,8 @@ if __name__ == "__main__":
             for i in range(len(lines)):
                 if lines[i].find("## Latest API Endpoint Changes") != -1:
                     break
-                
-            lines = lines[:i + 1]
+
+            lines = lines[:i + 1]  # type: ignore
 
         # replace the API changes in the README
         with open(readme_path, "w") as file:

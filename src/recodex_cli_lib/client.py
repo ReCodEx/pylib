@@ -11,6 +11,7 @@ from .client_components.client_response import ClientResponse
 from .helpers.utils import parse_endpoint_function
 from .helpers.utils import preprocess_raw_input_data
 
+
 class Client:
     """A client that can send requests to ReCodEx.
     Automatically handles request validation based on the current swagger specification file.
@@ -37,7 +38,7 @@ class Client:
     # the urllib.urlencode function used converts bools to 'True' or 'False', which causes an error on the endpoint
     def __fix_boolean_url_params(self, params: dict):
         for key, value in params.items():
-            if value == True or value == False:
+            if value is True or value is False:
                 params[key] = str(value).lower()
 
     def get_login_token(self, username: str, password: str) -> str:
@@ -57,7 +58,7 @@ class Client:
         )
 
         response_dict = response.get_parsed_data()
-        if response_dict == False:
+        if response_dict is None:
             raise Exception("Unable to fetch JWT token with the provided credentials")
 
         return response_dict["payload"]["accessToken"]
@@ -71,12 +72,21 @@ class Client:
 
         response = self.send_request_by_callback(DefaultApi.login_presenter_action_refresh)
         response_dict = response.get_parsed_data()
-        if response_dict == False:
+        if response_dict is None:
             raise Exception("Unable to refresh JWT token")
 
         return response_dict["payload"]["accessToken"]
 
-    def send_request(self, presenter: str, action: str, body={}, path_params={}, query_params={}, files={}, raw_body=False) -> ClientResponse:
+    def send_request(
+        self,
+        presenter: str,
+        action: str,
+        body={},
+        path_params={},
+        query_params={},
+        files={},
+        raw_body=False
+    ) -> ClientResponse:
         """Sends a request to a single ReCodEx endpoint.
         Automatically validates the request parameters.
 
@@ -98,7 +108,13 @@ class Client:
         endpoint_definition = self.endpoint_resolver.get_endpoint_definition(presenter, action)
 
         # in case the values are in string format, convert them to the correct types
-        path_params, query_params = preprocess_raw_input_data(path_params, query_params, presenter, action, self.endpoint_resolver)
+        path_params, query_params = preprocess_raw_input_data(
+            path_params,
+            query_params,
+            presenter,
+            action,
+            self.endpoint_resolver
+        )
 
         # validate the request (throws jsonschema.exceptions.ValidationError when invalid)
         if raw_body:
@@ -123,7 +139,15 @@ class Client:
 
         return response
 
-    def send_request_by_callback(self, endpoint: Callable, body={}, path_params={}, query_params={}, files={}, raw_body=False) -> ClientResponse:
+    def send_request_by_callback(
+        self,
+        endpoint: Callable,
+        body={},
+        path_params={},
+        query_params={},
+        files={},
+        raw_body=False
+    ) -> ClientResponse:
         """Sends a request to a single ReCodEx endpoint.
         Automatically validates the request parameters.
 

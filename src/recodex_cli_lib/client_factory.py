@@ -8,10 +8,11 @@ config_dir = Path(appdirs.user_config_dir("recodex"))
 data_dir = Path(appdirs.user_data_dir("recodex"))
 context_path = data_dir / "context.yaml"
 
+
 def get_client(api_url: str, username: str, password: str, verbose=False) -> Client:
     """Creates a client object. If the user context file is missing or expired,
     the file will be recreated using the provided credentials.
-    
+
     Args:
         api_url (str): The URL of the API.
         username (str): ReCodEx username.
@@ -36,6 +37,7 @@ def get_client(api_url: str, username: str, password: str, verbose=False) -> Cli
 
     return get_client_from_user_context(user_context)
 
+
 def get_client_from_session() -> Client:
     """Creates a client object from a user context file. If the file is missing or expired,
     an exception will be thrown.
@@ -48,13 +50,14 @@ def get_client_from_session() -> Client:
     """
 
     user_context = load_user_context()
-    if user_context == None:
+    if user_context is None:
         raise Exception("No user context (session) file was found.")
 
     if user_context.is_token_expired:
         raise Exception("The session token expired.")
-    
+
     return get_client_from_user_context(user_context)
+
 
 def get_client_from_user_context(user_context: UserContext) -> Client:
     """Creates a client object and refreshes the API token if it almost expired.
@@ -71,11 +74,10 @@ def get_client_from_user_context(user_context: UserContext) -> Client:
 
     if user_context.is_token_expired:
         raise Exception("The session token expired.")
-    if user_context.api_token == None:
+    if user_context.api_token is None:
         raise Exception("No session token was not found in the user context.")
-    if user_context.api_url == None:
+    if user_context.api_url is None:
         raise Exception("No API URL was found in the user context.")
-
 
     client = Client(user_context.api_token, user_context.api_url)
 
@@ -84,8 +86,9 @@ def get_client_from_user_context(user_context: UserContext) -> Client:
         user_context = user_context.replace_token(client.get_refresh_token())
         user_context.store(context_path)
         # recreate client
-        client = Client(user_context.api_token, user_context.api_url)
+        client = Client(user_context.api_token, user_context.api_url)  # type: ignore
     return client
+
 
 def load_user_context() -> UserContext | None:
     """Creates a UserContext object from a file if it exists.
@@ -98,6 +101,7 @@ def load_user_context() -> UserContext | None:
         return None
     return UserContext.load(context_path)
 
+
 def create_session_from_credentials(api_url: str, username: str, password: str, verbose=False):
     """Retrieves an API token and creates a user context file from the provided credentials.
 
@@ -109,6 +113,7 @@ def create_session_from_credentials(api_url: str, username: str, password: str, 
     """
 
     __create_user_context(api_url, username, password, verbose)
+
 
 def create_session_from_token(api_url: str, api_token: str, verbose=False):
     """Retrieves an API token and creates a user context file from the provided credentials.
@@ -127,6 +132,7 @@ def create_session_from_token(api_url: str, api_token: str, verbose=False):
     if verbose:
         print(f"Login token stored at: {context_path}")
 
+
 def __create_user_context(api_url: str, username: str, password: str, verbose=False) -> UserContext:
     """Retrieves an API token and creates a user context file from the provided credentials.
 
@@ -141,7 +147,7 @@ def __create_user_context(api_url: str, username: str, password: str, verbose=Fa
     """
 
     client = Client("", api_url)
-    
+
     if verbose:
         print("Connecting...")
     token = client.get_login_token(username, password)

@@ -1,7 +1,9 @@
 from collections.abc import Callable
 
+
 def camel_case_to_snake_case(camel_case_string):
     return ''.join(['_' + char.lower() if char.isupper() else char for char in camel_case_string])
+
 
 def parse_endpoint_function(endpoint: Callable) -> tuple[str, str]:
     """Extracts the presenter and action names from a generated endpoint function.
@@ -21,13 +23,14 @@ def parse_endpoint_function(endpoint: Callable) -> tuple[str, str]:
 
     return (presenter, action)
 
+
 def preprocess_raw_input_data(
         path_params: dict,
         query_params: dict,
         presenter: str,
         action: str,
         endpoint_resolver
-    ) -> tuple[dict, dict]:
+) -> tuple[dict, dict]:
     """Refines raw string values of path and query parameters based on a schema.
 
     Args:
@@ -45,6 +48,7 @@ def preprocess_raw_input_data(
     processed_query_params = __parse_input_values(query_params, presenter, action, endpoint_resolver.get_query_param)
     return (processed_path_params, processed_query_params)
 
+
 def __parse_input_values(params: dict, presenter: str, action: str, param_definition_callback: Callable) -> dict:
     processed_params = {}
     for key, value in params.items():
@@ -54,7 +58,7 @@ def __parse_input_values(params: dict, presenter: str, action: str, param_defini
         processed_params[key] = value
 
         # skip undefined parameters or parameters that are not stringified
-        if param_definition == None or (not isinstance(value, str)):
+        if param_definition is None or (not isinstance(value, str)):
             continue
 
         # parse value based on type

@@ -96,7 +96,7 @@ utf8_string = response.data
 
 # data parsed into a dictionary
 dictionary_data = response.get_parsed_data()
-if dictionary_data == False:
+if dictionary_data == None:
   raise Exception("Data is not in JSON format.")
 
 # formatted data (useful for printing in the CLI)
