@@ -1,5 +1,6 @@
 import appdirs
 from pathlib import Path
+import os
 
 from .client import Client
 from .helpers.user_context import UserContext
@@ -131,6 +132,14 @@ def create_session_from_token(api_url: str, api_token: str, verbose=False):
     user_context.store(context_path)
     if verbose:
         print(f"Login token stored at: {context_path}")
+
+
+def remove_session():
+    """Deletes the user context file, effectively logging the user out.
+    """
+
+    if load_user_context() is not None:
+        os.remove(context_path)
 
 
 def __create_user_context(api_url: str, username: str, password: str, verbose=False) -> UserContext:
