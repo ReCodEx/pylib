@@ -16,7 +16,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "recodex_cli_lib_eceltov"
-version = "0.0.62"
+version = "0.0.63"
 authors = [
   { name="Vojtech Kloda", email="vojtech.kloda@gmail.com" },
 ]
