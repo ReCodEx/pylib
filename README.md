@@ -55,6 +55,9 @@ client_factory.create_session_from_token(api_url, api_token, verbose=True)
 
 # creating client from session 
 client = client_factory.get_client_from_session()
+
+# removing the session
+client_factory.remove_session()
 ```
 
 ### Calling Endpoints
@@ -96,7 +99,7 @@ utf8_string = response.data
 
 # data parsed into a dictionary
 dictionary_data = response.get_parsed_data()
-if dictionary_data == None:
+if dictionary_data is None:
   raise Exception("Data is not in JSON format.")
 
 # formatted data (useful for printing in the CLI)
@@ -106,7 +109,7 @@ formatted_yaml_string = response.get_json_string()
 
 ### Utility Functions
 
-In case you want to manually manage api tokens, the Client contains methods for this purpose. 
+In case you want to manually create api tokens, the Client contains methods for this purpose. 
 
 ```python
 new_token = client.get_login_token(username, password)
