@@ -41,6 +41,9 @@ The `get_client_from_session` function can be used to create a Client instance d
 It is not recommended to instantiate the Client directly (without the `client_factory`), because doing so will not create a session.
 
 ```python
+from recodex_cli_lib import client_factory
+from recodex_cli_lib.client import Client
+
 # URL of the API server
 api_url = "http://localhost:4000"
 
