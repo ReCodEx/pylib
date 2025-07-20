@@ -2,7 +2,7 @@
 
 # This script will regenerate the generated code based on a new swagger.yaml.
 # It expects the swagger-codegen repo is already set up, and will initialize a python venv
-# environment to run a script to replace the changelog in the README.
+# environment to run a script to replace the changelog in the summary file (api-changes.md).
 
 # path to swagger-codegen (https://github.com/swagger-api/swagger-codegen/tree/3.0.0)
 swaggerCodegenPath=./swagger-codegen
@@ -23,7 +23,7 @@ if ! test -d ./venv; then
    ./venv/bin/pip install -r requirements.txt
 fi
 
-echo "Updating README"
+echo "Updating API change summary"
 ./venv/bin/activate
 python3 src/swaggerDiffchecker.py $oldSwaggerDocsPath $recodexSwaggerDocsPath
 
