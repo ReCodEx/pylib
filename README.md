@@ -136,6 +136,12 @@ The `commands` folder contains four utility commands:
 - `runTestsLocally` installs the library in interactive mode and runs all tests in the `tests` folder.
 - `uploadPackage.sh` packages the library and uploads it to PyPI. This action requires a PyPI token and rights to modify the package.
 
+### Releasing New Versions
+
+To release a new version of the package, you need to increment the version number in the `pyproject.toml` file (in the `[project]` section) and then run the `uploadPackage.sh` script.
+
+In case the ReCodEx API changed, do not forget to run `replaceGenerated.sh` beforehand to update the generated API functions and the swagger file used for user input validation.
+
 ## Repository Structure
 
 ### Library Code
