@@ -60,7 +60,7 @@ def get_client_from_session() -> Client:
 
     session = load_session()
     if session is None:
-        raise Exception("No session file was found.")
+        raise Exception("No session file was found. Are you logged in?")
 
     if session.is_token_expired:
         raise Exception("The session token expired.")
