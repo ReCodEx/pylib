@@ -168,3 +168,5 @@ This file should be updated regularly to make sure the tests reflect the latest 
 
 
 ## Latest API Endpoint Changes
+
+You can find a summary of the latest API changes [here](api-changes.md).

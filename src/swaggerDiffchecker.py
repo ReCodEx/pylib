@@ -380,20 +380,8 @@ if __name__ == "__main__":
     new_swagger = read_swagger(sys.argv[2])
     # check if the swaggers changed
     if new_changes(old_swagger, new_swagger):
-        readme_path = Path(__file__).parent.parent.joinpath("README.md")
-        # find the API changes line in the README
-        with open(readme_path, "r") as file:
-            lines: list[str] = file.readlines()
-            if len(lines) == 0:
-                raise Exception("The README is empty")
-
-            for i in range(len(lines)):
-                if lines[i].find("## Latest API Endpoint Changes") != -1:
-                    break
-
-            lines = lines[:i + 1]  # type: ignore
-
-        # replace the API changes in the README
-        with open(readme_path, "w") as file:
-            lines += get_diff_lines(old_swagger, new_swagger)
+        changes_file_path = Path(__file__).parent.parent.joinpath("api-changes.md")
+        # replace the API changes in the file
+        with open(changes_file_path, "w") as file:
+            lines = get_diff_lines(old_swagger, new_swagger)
             file.writelines(lines)
