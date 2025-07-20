@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 
-class UserContext(NamedTuple):
+class UserSession(NamedTuple):
     """A class that loads, stores and checks whether the user JWT token is expired.
     """
 
@@ -20,7 +20,10 @@ class UserContext(NamedTuple):
         if self.api_token is None:
             raise RuntimeError("The API token is not set")
 
-        return jwt.decode(self.api_token, options={"verify_signature": False})
+        try:
+            return jwt.decode(self.api_token, options={"verify_signature": False})
+        except:
+            raise Exception("Could not decode provided API token")
 
     @property
     def user_id(self):
@@ -42,7 +45,7 @@ class UserContext(NamedTuple):
     def is_token_expired(self) -> bool:
         return self.token_data["exp"] <= datetime.now(timezone.utc).timestamp()
 
-    def replace_token(self, new_token) -> 'UserContext':
+    def replace_token(self, new_token) -> 'UserSession':
         return self._replace(api_token=new_token)
 
     @classmethod

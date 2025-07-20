@@ -2,7 +2,7 @@ import unittest
 from multiprocessing import Process
 import time
 
-from recodex_cli_lib.client_factory import get_client
+from recodex_cli_lib.client_factory import get_client_from_credentials
 
 from ..mock_server import create_app
 
@@ -23,7 +23,7 @@ class TestClassBase(unittest.TestCase):
         # wait for the server to start
         time.sleep(0.5)
         # initialize client
-        cls.client = get_client(cls.SERVER_URL, "user", "password")
+        cls.client = get_client_from_credentials(cls.SERVER_URL, "user", "password")
 
     @classmethod
     def tearDownClass(cls):
