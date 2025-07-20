@@ -41,6 +41,25 @@ class Client:
             if value is True or value is False:
                 params[key] = str(value).lower()
 
+    # removes nested objects by moving nested keys up
+    # converts query object keys ({filters: {search: value}} => {filters_search: value})
+    def __preprocess_query_params(self, query_params: dict):
+        removed_keys = []
+        new_values = {}
+        # find nested objects
+        for key, value in query_params.items():
+            if isinstance(value, dict):
+                removed_keys.append(key)
+                for nested_key, nested_value in value.items():
+                    new_values[f"{key}_{nested_key}"] = nested_value
+
+        # remove nested objects
+        for key in removed_keys:
+            query_params.pop(key)
+        # put nested object data to the top-level object
+        for key, value in new_values.items():
+            query_params[key] = value
+
     def get_login_token(self, username: str, password: str) -> str:
         """Fetches the JWT token from ReCodEx.
 
@@ -125,6 +144,8 @@ class Client:
         # convert boolean values to strings to avoid urllib errors
         self.__fix_boolean_url_params(path_params)
         self.__fix_boolean_url_params(query_params)
+        # convert query object keys ({filters: {search: value}} => {filters_search: value})
+        self.__preprocess_query_params(query_params)
 
         endpoint_callback = self.endpoint_resolver.get_endpoint_callback(presenter, action, self.generated_api)
 
