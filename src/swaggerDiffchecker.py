@@ -4,7 +4,7 @@ import sys
 from deepdiff import DeepDiff
 from pathlib import Path
 
-from recodex_cli_lib.helpers.utils import camel_case_to_snake_case
+from recodex_pylib.helpers.utils import camel_case_to_snake_case
 
 
 class LineStatus:

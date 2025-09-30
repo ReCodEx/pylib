@@ -2,7 +2,7 @@ import unittest
 from multiprocessing import Process
 import time
 
-from recodex_cli_lib.client_factory import get_client_from_credentials
+from recodex_pylib.client_factory import get_client_from_credentials
 
 from ..mock_server import create_app
 

@@ -8,7 +8,7 @@ This library can be used in custom scripts and command-line interfaces for fine-
 The recommended way to install the library is via `pip`. Python 3.11 is recommended, but other versions may also work:
 
 ```bash
-PIP_EXTRA_INDEX_URL="https://test.pypi.org/simple/" pip install recodex_cli_lib_eceltov
+PIP_EXTRA_INDEX_URL="https://test.pypi.org/simple/" pip install recodex-pylib
 ```
 
 ### Installation from Source
@@ -41,8 +41,8 @@ The `get_client_from_session` function can be used to create a Client instance d
 It is not recommended to instantiate the Client directly (without the `client_factory`), because doing so will not create a session.
 
 ```python
-from recodex_cli_lib import client_factory
-from recodex_cli_lib.client import Client
+from recodex_pylib import client_factory
+from recodex_pylib.client import Client
 
 # URL of the API server
 api_url = "http://localhost:4000"
@@ -77,9 +77,9 @@ Generated model instances can also be passed to the `body` parameter.
 
 ```python
 # DefaultApi can be used as an enumeration of all endpoint callbacks
-from recodex_cli_lib.generated.swagger_client import DefaultApi
+from recodex_pylib.generated.swagger_client import DefaultApi
 # generated models are imported one by one
-from recodex_cli_lib.generated.swagger_client.models.id_organizational_body import IdOrganizationalBody
+from recodex_pylib.generated.swagger_client.models.id_organizational_body import IdOrganizationalBody
 
 # specify endpoint with string identifiers
 response = client.send_request("groups", "set_organizational", path_params={"id": "154b..."}, body={"value": True})
@@ -125,7 +125,7 @@ refresh_token = client.get_refresh_token()
 To upload a file, you can use the `upload` utility function that automatically sends the file in chunks.
 
 ```python
-from recodex_cli_lib.helpers.file_upload_helper import upload
+from recodex_pylib.helpers.file_upload_helper import upload
 file_id = upload(client, "file.txt", verbose=True)
 ```
 
@@ -149,7 +149,7 @@ In case the ReCodEx API changed, do not forget to run `replaceGenerated.sh` befo
 
 ### Library Code
 
-The `src/recodex_cli_lib` contains all code of the library.
+The `src/recodex-pylib` contains all code of the library.
 
 The `client.py` contains the main `Client` class that links all parts together.
 It uses the `SwaggerValidator` (`client_components/swagger_validator.py`) class to validate requests against their schema and the `EndpointResolver` (`client_components/endpoint_resolver.py`) to translate endpoint identifiers to the generated API functions.

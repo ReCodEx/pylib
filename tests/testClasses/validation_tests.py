@@ -1,6 +1,6 @@
 from jsonschema.exceptions import ValidationError
 
-from recodex_cli_lib.generated.swagger_client.api.default_api import DefaultApi
+from recodex_pylib.generated.swagger_client.api.default_api import DefaultApi
 
 from .test_class_base import TestClassBase
 
@@ -9,7 +9,7 @@ from ..utils import constants
 
 class ValidationTests(TestClassBase):
     def test_invalid_body(self):
-        request = lambda: self.client.send_request_by_callback(
+        def request(): return self.client.send_request_by_callback(
             DefaultApi.registration_presenter_action_create_invitation,
             body={
                 "email": "name@domain.tld",

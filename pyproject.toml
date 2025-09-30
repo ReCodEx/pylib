@@ -15,12 +15,13 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "recodex_cli_lib_eceltov"
-version = "0.0.66"
+name = "recodex-pylib"
+version = "0.1.0"
 authors = [
   { name="Vojtech Kloda", email="vojtech.kloda@gmail.com" },
+  { name="Martin Kruliš", email="krulis@d3s.mff.cuni.cz"},
 ]
-description = "A library for ReCodEx API calls."
+description = "A python library for ReCodEx API calls."
 readme = "README.md"
 requires-python = ">=3.11"
 classifiers = [
@@ -43,5 +44,5 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/ReCodEx"
-Issues = "https://github.com/ReCodEx"
+Homepage = "https://github.com/ReCodEx/pylib"
+Issues = "https://github.com/ReCodEx/pylib/issues"

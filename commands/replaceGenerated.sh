@@ -12,10 +12,10 @@ swaggerCodegenPath=./swagger-codegen
 recodexSwaggerDocsPath=../api/docs/swagger.yaml
 
 # path to the generated code
-generatedPath=./src/recodex_cli_lib/generated
+generatedPath=./src/recodex-pylib/generated
 
 # path to the old swagger
-oldSwaggerDocsPath=./src/recodex_cli_lib/generated/swagger.yaml
+oldSwaggerDocsPath=./src/recodex-pylib/generated/swagger.yaml
 
 if ! test -d ./venv; then
    echo "Initializing Python venv"
@@ -43,10 +43,10 @@ cp $recodexSwaggerDocsPath "$generatedPath/swagger.yaml"
 # the raw generated code expects to be used as a top-level package using absolute import,
 # but that is not the case here, the absolute imports need to be converted to relative ones by
 # adding a correct number of dots before them (based on directory depth)
-sed -i 's/\bswagger_client\b/..swagger_client/g' src/recodex_cli_lib/generated/swagger_client/__init__.py
-sed -i 's/import swagger_client\.models/from swagger_client import models/g' src/recodex_cli_lib/generated/swagger_client/api_client.py
-sed -i 's/\bswagger_client\.models\b/models/g' src/recodex_cli_lib/generated/swagger_client/api_client.py
-sed -i 's/\bswagger_client\b/..swagger_client/g' src/recodex_cli_lib/generated/swagger_client/api_client.py
-sed -i 's/\bswagger_client\b/...swagger_client/g' src/recodex_cli_lib/generated/swagger_client/api/__init__.py
-sed -i 's/\bswagger_client\b/...swagger_client/g' src/recodex_cli_lib/generated/swagger_client/api/default_api.py
-sed -i 's/\bswagger_client\b/...swagger_client/g' src/recodex_cli_lib/generated/swagger_client/models/__init__.py
+sed -i 's/\bswagger_client\b/..swagger_client/g' src/recodex-pylib/generated/swagger_client/__init__.py
+sed -i 's/import swagger_client\.models/from swagger_client import models/g' src/recodex-pylib/generated/swagger_client/api_client.py
+sed -i 's/\bswagger_client\.models\b/models/g' src/recodex-pylib/generated/swagger_client/api_client.py
+sed -i 's/\bswagger_client\b/..swagger_client/g' src/recodex-pylib/generated/swagger_client/api_client.py
+sed -i 's/\bswagger_client\b/...swagger_client/g' src/recodex-pylib/generated/swagger_client/api/__init__.py
+sed -i 's/\bswagger_client\b/...swagger_client/g' src/recodex-pylib/generated/swagger_client/api/default_api.py
+sed -i 's/\bswagger_client\b/...swagger_client/g' src/recodex-pylib/generated/swagger_client/models/__init__.py
