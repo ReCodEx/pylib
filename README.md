@@ -1,6 +1,6 @@
 # ReCodEx Client Library
 
-A client API library for the [ReCodEx](https://recodex.mff.cuni.cz/) system.
+A client API library for the [ReCodEx](https://github.com/ReCodEx) system.
 This library can be used in custom scripts and command-line interfaces for fine-grained interactions with the system.
 
 ## Installation
@@ -8,23 +8,38 @@ This library can be used in custom scripts and command-line interfaces for fine-
 The recommended way to install the library is via `pip`. Python 3.11 is recommended, but other versions may also work:
 
 ```bash
-PIP_EXTRA_INDEX_URL="https://test.pypi.org/simple/" pip install recodex-pylib
+pip install recodex-pylib
 ```
 
 ### Installation from Source
 
-For developers or those who prefer to install directly from the source code, follow these steps:
+For developers or those who prefer to install directly from the source code, follow these steps. First, you need to generate the API code from the OpenAPI Specification (OAS) file. This is done by a script that requires `wget` and Java to be installed on your system (automatically downloads the Swagger Codegen CLI as jar from Maven.org). Assuming all commands are executed from the repository root.
 
 ```bash
-# make sure to run these commands from the root of the repository
-./commands/initRepo.sh
-source venv/bin/activate
+./bin/init.sh
+```
+
+Then, you can either use your system's Python installation:
+```bash
+python3 install -r requirements.txt
+python3 install -e .
+```
+
+Or, you can set up a local `venv` environment (recommended):
+
+```bash
+python3 -m venv ./venv
+./venv/bin/pip install -r requirements.txt
+./venv/bin/pip install -e .
+```
+
+Which can be activated in your shell with:
+```bash
+source ./venv/bin/activate
 ```
 
 This will install the library in interactive mode, meaning that changes made to the source afterwards will be automatically reflected in the installation.
 
-The script will clone the `swagger-api/swagger-codegen` repository, install it, generate code from an OpenAPI Specification file, and setup a Python `venv` environment.
-Note that this process may take several minutes.
 
 ## Usage
 
@@ -41,8 +56,8 @@ The `get_client_from_session` function can be used to create a Client instance d
 It is not recommended to instantiate the Client directly (without the `client_factory`), because doing so will not create a session.
 
 ```python
-from recodex_pylib import client_factory
-from recodex_pylib.client import Client
+from recodex import client_factory
+from recodex.client import Client
 
 # URL of the API server
 api_url = "http://localhost:4000"
@@ -77,9 +92,9 @@ Generated model instances can also be passed to the `body` parameter.
 
 ```python
 # DefaultApi can be used as an enumeration of all endpoint callbacks
-from recodex_pylib.generated.swagger_client import DefaultApi
+from recodex.generated.swagger_client import DefaultApi
 # generated models are imported one by one
-from recodex_pylib.generated.swagger_client.models.id_organizational_body import IdOrganizationalBody
+from recodex.generated.swagger_client.models.id_organizational_body import IdOrganizationalBody
 
 # specify endpoint with string identifiers
 response = client.send_request("groups", "set_organizational", path_params={"id": "154b..."}, body={"value": True})
@@ -125,7 +140,7 @@ refresh_token = client.get_refresh_token()
 To upload a file, you can use the `upload` utility function that automatically sends the file in chunks.
 
 ```python
-from recodex_pylib.helpers.file_upload_helper import upload
+from recodex.helpers.file_upload_helper import upload
 file_id = upload(client, "file.txt", verbose=True)
 ```
 
@@ -134,22 +149,16 @@ file_id = upload(client, "file.txt", verbose=True)
 ## Commands
 
 The `commands` folder contains four utility commands:
-- `initRepo.sh` is used for initial setup of the repository after download; it is described in the installation section.
-- `replaceGenerated.sh` generates code from a new OAS and replaces the old one. It also appends an update log to this README. Make sure to change the `recodexSwaggerDocsPath` variable to point to the path of the new OAS before you run the command.
-- `runTestsLocally` installs the library in interactive mode and runs all tests in the `tests` folder.
-- `uploadPackage.sh` packages the library and uploads it to PyPI. This action requires a PyPI token and rights to modify the package.
+- `init.sh` is used for initial setup of the repository after download; it is described in the installation section.
+- `update-generated-api.sh` generates code from a new OAS and replaces the old one. It also generates a diff summary in [api-changes.md](api-changes.md)
+- `run-tests-locally.sh` installs the library in interactive mode and runs all tests in the `tests` folder.
 
-### Releasing New Versions
-
-To release a new version of the package, you need to increment the version number in the `pyproject.toml` file (in the `[project]` section) and then run the `uploadPackage.sh` script.
-
-In case the ReCodEx API changed, do not forget to run `replaceGenerated.sh` beforehand to update the generated API functions and the swagger file used for user input validation.
 
 ## Repository Structure
 
 ### Library Code
 
-The `src/recodex-pylib` contains all code of the library.
+The `./src/recodex` contains all code of the library.
 
 The `client.py` contains the main `Client` class that links all parts together.
 It uses the `SwaggerValidator` (`client_components/swagger_validator.py`) class to validate requests against their schema and the `EndpointResolver` (`client_components/endpoint_resolver.py`) to translate endpoint identifiers to the generated API functions.
@@ -160,19 +169,20 @@ The folder is not part of the repository and needs to be manually generated.
 The `aliases.yaml` file contains all aliases for endpoints. These aliases can be used instead of the default presenter and action identifiers.
 The aliases are parsed and managed by the `AliasContainer` (`client_components/alias_container.py`) class.
 
+
 ### Repository Utilities
 
-During code regeneration, the `src/swaggerDiffchecker.py` script is used to find differences between the old and new OAS and writes a summary to this README file.
+During code regeneration, the `./src/swagger-diffchecker.py` script is used to find differences between the old and new OAS and writes a summary to this README file.
 
 ### Testing
 
-Testing relies on a mock ReCodEx API server implemented in flask that exposes a few endpoints, which are implemented in the `tests/mockEndpoints` folder.
-The files are then linked to the server in the `tests/mock_server.py` script.
+Testing relies on a mock ReCodEx API server implemented in flask that exposes a few endpoints, which are implemented in the `./tests/mockEndpoints` folder.
+The files are then linked to the server in the `./tests/mock_server.py` script.
 
-The actual tests are implemented in dedicated classes in the `tests/testClasses` folder.
+The actual tests are implemented in dedicated classes in the `./tests/testClasses` folder.
 They derive from the `test_class_base.py` which uses the full login process to connect to the mock server.
 
-The tests are automatically run in GitHub CI/CD, where code is generated from the `tests/swagger.yaml` file.
+The tests are automatically run in GitHub CI/CD, where code is generated from the `./tests/swagger.yaml` file.
 This file should be updated regularly to make sure the tests reflect the latest state.
 
 

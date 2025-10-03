@@ -10,5 +10,5 @@ exclude =
     build,
     dist,
     swagger-codegen,
-    src/recodex-pylib/generated
+    recodex/generated
 max-complexity = 10

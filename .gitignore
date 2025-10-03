@@ -1,6 +1,7 @@
 venv
-src/recodex-pylib/generated
 __pycache__
-dist
 *.egg-info
-swagger-codegen
+/dist
+/src/recodex/generated
+/swagger.yaml
+/bin/swagger-codegen-cli.jar

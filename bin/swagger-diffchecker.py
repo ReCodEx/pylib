@@ -4,7 +4,7 @@ import sys
 from deepdiff import DeepDiff
 from pathlib import Path
 
-from recodex_pylib.helpers.utils import camel_case_to_snake_case
+from recodex.helpers.utils import camel_case_to_snake_case
 
 
 class LineStatus:
@@ -373,15 +373,15 @@ def get_diff_lines(old_swagger: dict, new_swagger: dict) -> list[str]:
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
+    if len(sys.argv) != 4:
         raise Exception(f"Expected 2 parameters (compared swagger paths), but {len(sys.argv) - 1} were provided.")
 
     old_swagger = read_swagger(sys.argv[1])
     new_swagger = read_swagger(sys.argv[2])
+    output_file = sys.argv[3]
+
     # check if the swaggers changed
     if new_changes(old_swagger, new_swagger):
-        changes_file_path = Path(__file__).parent.parent.joinpath("api-changes.md")
-        # replace the API changes in the file
-        with open(changes_file_path, "w") as file:
+        with open(output_file, "w") as file:
             lines = get_diff_lines(old_swagger, new_swagger)
             file.writelines(lines)
