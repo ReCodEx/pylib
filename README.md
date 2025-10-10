@@ -113,10 +113,10 @@ The data can be retrieved in multiple ways.
 
 ```python
 # binary response data
-binary_data = response.data_binary
+binary_data = response.get_data_binary()
 
 # stringified response data
-utf8_string = response.data
+utf8_string = response.get_data_str()
 
 # data parsed into a dictionary
 dictionary_data = response.get_parsed_data()
@@ -125,7 +125,7 @@ if dictionary_data is None:
 
 # formatted data (useful for printing in the CLI)
 formatted_json_string = response.get_json_string()
-formatted_yaml_string = response.get_json_string()
+formatted_yaml_string = response.get_yaml_string()
 ```
 
 ### Utility Functions
