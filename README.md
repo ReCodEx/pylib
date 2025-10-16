@@ -118,10 +118,17 @@ binary_data = response.get_data_binary()
 # stringified response data
 utf8_string = response.get_data_str()
 
-# data parsed into a dictionary
+# raw data parsed into a dictionary
 dictionary_data = response.get_parsed_data()
 if dictionary_data is None:
   raise Exception("Data is not in JSON format.")
+
+# payload extracted from the parsed data (typical case)
+payload = response.get_payload()
+
+# if the payload is irrelevant, we can only check for success
+# (an exception is raised if the call failed)
+response.check_success()
 
 # formatted data (useful for printing in the CLI)
 formatted_json_string = response.get_json_string()
