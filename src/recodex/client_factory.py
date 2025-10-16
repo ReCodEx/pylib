@@ -26,7 +26,7 @@ def get_client_from_credentials(api_url: str, username: str, password: str, verb
 
     remove_session()
     session = create_session_from_credentials(api_url, username, password, verbose)
-    return __create_client_from_session(session)
+    return _create_client_from_session(session)
 
 
 def get_client_from_token(api_url: str, api_token: str, verbose=False) -> Client:
@@ -44,7 +44,7 @@ def get_client_from_token(api_url: str, api_token: str, verbose=False) -> Client
 
     remove_session()
     session = create_session_from_token(api_url, api_token, verbose)
-    return __create_client_from_session(session)
+    return _create_client_from_session(session)
 
 
 def get_client_from_session() -> Client:
@@ -57,15 +57,7 @@ def get_client_from_session() -> Client:
     Returns:
         Client: Returns a client object.
     """
-
-    session = load_session()
-    if session is None:
-        raise Exception("No session file was found. Are you logged in?")
-
-    if session.is_token_expired:
-        raise Exception("The session token expired.")
-
-    return __create_client_from_session(session)
+    return _load_session_and_create_client()
 
 
 def load_session() -> UserSession | None:
@@ -97,7 +89,7 @@ def create_session_from_token(api_url: str, api_token: str, verbose=False) -> Us
     api_token = api_token.strip()
 
     session = UserSession(api_url, api_token)
-    if session.is_token_expired:
+    if session.is_token_expired():
         raise Exception("The provided API token had expired.")
 
     session.store(session_path)
@@ -147,7 +139,35 @@ def remove_session():
         os.remove(session_path)
 
 
-def __create_client_from_session(session: UserSession) -> Client:
+def refresh_session():
+    """Refreshes the session token and updates the session file.
+    """
+    _load_session_and_create_client(force_refresh=True)
+
+
+def _load_session_and_create_client(force_refresh: bool = False) -> Client:
+    """Loads the session from a file and creates a client object.
+    If the session file is missing or expired, an exception will be thrown.
+
+    Args:
+        force_refresh (bool, optional): Whether the token should be refreshed even if it is not
+                                        close to expiration. Defaults to False.
+
+    Raises:
+        Exception: Thrown when the session file is missing or expired.
+    """
+
+    session = load_session()
+    if session is None:
+        raise Exception("No session file was found.")
+
+    if session.is_token_expired():
+        raise Exception("The session token expired.")
+
+    return _create_client_from_session(session, force_refresh)
+
+
+def _create_client_from_session(session: UserSession, force_refresh: bool = False) -> Client:
     """Creates a client object and refreshes the API token if it almost expired.
 
     Args:
@@ -160,19 +180,19 @@ def __create_client_from_session(session: UserSession) -> Client:
         Client: Returns a client object.
     """
 
-    if session.is_token_expired:
+    if session.is_token_expired():
         raise Exception("The session token expired.")
-    if session.api_token is None:
+    if session.get_api_token() is None:
         raise Exception("No session token was not found in the session.")
-    if session.api_url is None:
+    if session.get_api_url() is None:
         raise Exception("No API URL was found in the session.")
 
-    client = Client(session.api_token, session.api_url)
+    client = Client(session.get_api_token(), session.get_api_url())
 
     # refresh token if necessary
-    if session.is_token_almost_expired():
+    if session.is_token_almost_expired() or force_refresh:
         session = session.replace_token(client.get_refresh_token())
         session.store(session_path)
         # recreate client
-        client = Client(session.api_token, session.api_url)  # type: ignore
+        client = Client(session.get_api_token(), session.get_api_url())  # type: ignore
     return client

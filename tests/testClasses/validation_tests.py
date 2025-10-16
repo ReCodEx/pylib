@@ -1,6 +1,6 @@
 from jsonschema.exceptions import ValidationError
 
-from recodex_pylib.generated.swagger_client.api.default_api import DefaultApi
+from recodex.generated.swagger_client.api.default_api import DefaultApi
 
 from .test_class_base import TestClassBase
 

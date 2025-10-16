@@ -16,7 +16,7 @@ class UserSession(NamedTuple):
 
     @property
     @lru_cache()
-    def token_data(self):
+    def _token_data(self):
         if self.api_token is None:
             raise RuntimeError("The API token is not set")
 
@@ -25,9 +25,14 @@ class UserSession(NamedTuple):
         except:
             raise Exception("Could not decode provided API token")
 
-    @property
-    def user_id(self):
-        return self.token_data["sub"]
+    def get_api_url(self):
+        return self.api_url
+
+    def get_api_token(self):
+        return self.api_token
+
+    def get_user_id(self):
+        return self._token_data["sub"]
 
     def is_token_almost_expired(self, threshold=0.5) -> bool:
         """
@@ -36,14 +41,16 @@ class UserSession(NamedTuple):
                           expiration, the method will return True.
         """
 
-        validity_period = self.token_data["exp"] - self.token_data["iat"]
-        time_until_expiration = self.token_data["exp"] - \
+        validity_period = self._token_data["exp"] - self._token_data["iat"]
+        time_until_expiration = self._token_data["exp"] - \
             datetime.now(timezone.utc).timestamp()
         return validity_period * threshold > time_until_expiration
 
-    @property
     def is_token_expired(self) -> bool:
-        return self.token_data["exp"] <= datetime.now(timezone.utc).timestamp()
+        return self._token_data["exp"] <= datetime.now(timezone.utc).timestamp()
+
+    def get_token_expiration_time(self) -> datetime:
+        return datetime.fromtimestamp(self._token_data["exp"])
 
     def replace_token(self, new_token) -> 'UserSession':
         return self._replace(api_token=new_token)

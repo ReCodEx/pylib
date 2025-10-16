@@ -44,12 +44,12 @@ def preprocess_raw_input_data(
         tuple[dict, dict]: Returns preprocessed path and query parameters.
     """
 
-    processed_path_params = __parse_input_values(path_params, presenter, action, endpoint_resolver.get_path_param)
-    processed_query_params = __parse_input_values(query_params, presenter, action, endpoint_resolver.get_query_param)
+    processed_path_params = _parse_input_values(path_params, presenter, action, endpoint_resolver.get_path_param)
+    processed_query_params = _parse_input_values(query_params, presenter, action, endpoint_resolver.get_query_param)
     return (processed_path_params, processed_query_params)
 
 
-def __parse_input_values(params: dict, presenter: str, action: str, param_definition_callback: Callable) -> dict:
+def _parse_input_values(params: dict, presenter: str, action: str, param_definition_callback: Callable) -> dict:
     processed_params = {}
     for key, value in params.items():
         # get parameter schema

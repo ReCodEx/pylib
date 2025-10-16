@@ -24,50 +24,50 @@ def upload(client: Client, filepath: str, verbose: bool = False) -> str:
     with open(filepath, "rb") as file:
         content = file.read()
         byte_count = len(content)
-    __print_if_verbose("Read file", verbose)
+    _print_if_verbose("Read file", verbose)
 
     # start the upload
-    start_partial_res = __start_partial(client, filename, byte_count)
+    start_partial_res = _start_partial(client, filename, byte_count)
     partial_file_id = start_partial_res["payload"]["id"]
-    __print_if_verbose(f"Initiated partial upload, Partial File ID: {partial_file_id}", verbose)
+    _print_if_verbose(f"Initiated partial upload, Partial File ID: {partial_file_id}", verbose)
 
     # send all chunks
-    __send_chunks(client, partial_file_id, content, byte_count, verbose)
-    __print_if_verbose("All chunks sent", verbose)
+    _send_chunks(client, partial_file_id, content, byte_count, verbose)
+    _print_if_verbose("All chunks sent", verbose)
 
     # send the completion request
-    complete_partial_res = __complete_partial(client, partial_file_id)
+    complete_partial_res = _complete_partial(client, partial_file_id)
     file_id = complete_partial_res["payload"]["id"]
-    __print_if_verbose("Partial upload completed", verbose)
+    _print_if_verbose("Partial upload completed", verbose)
 
     # calculate the server and client digest and compare them
-    digest_res = __digest_server(client, file_id)
+    digest_res = _digest_server(client, file_id)
     sha1_server = digest_res["payload"]["digest"]
-    sha1_client = __digest_client(content)
+    sha1_client = _digest_client(content)
     if sha1_server != sha1_client:
         raise Exception("The server and client digests do not match")
-    __print_if_verbose("Server and client file digests match", verbose)
+    _print_if_verbose("Server and client file digests match", verbose)
 
     return file_id
 
 
-def __print_if_verbose(message: str, verbose: bool):
+def _print_if_verbose(message: str, verbose: bool):
     if verbose:
         print(message)
 
 
-def __send_chunks(client: Client, partial_file_id: str, content: bytes, byte_count: int, verbose: bool = False):
+def _send_chunks(client: Client, partial_file_id: str, content: bytes, byte_count: int, verbose: bool = False):
     offset = 0
     while offset + CHUNK_SIZE < byte_count:
-        __append_partial(client, partial_file_id, content, offset, offset + CHUNK_SIZE)
+        _append_partial(client, partial_file_id, content, offset, offset + CHUNK_SIZE)
         offset += CHUNK_SIZE
-        __print_if_verbose(f"Sent {offset}/{byte_count} bytes", verbose)
+        _print_if_verbose(f"Sent {offset}/{byte_count} bytes", verbose)
 
     if offset < byte_count:
-        __append_partial(client, partial_file_id, content, offset, byte_count)
+        _append_partial(client, partial_file_id, content, offset, byte_count)
 
 
-def __start_partial(client: Client, filename: str, byte_count: int) -> dict:
+def _start_partial(client: Client, filename: str, byte_count: int) -> dict:
     try:
         res = client.send_request(
             "uploaded_files",
@@ -85,7 +85,7 @@ def __start_partial(client: Client, filename: str, byte_count: int) -> dict:
         raise Exception(f"Could not start partial upload: {e}")
 
 
-def __append_partial(client: Client, partial_file_id: str, content: bytes, start: int, stop: int) -> dict:
+def _append_partial(client: Client, partial_file_id: str, content: bytes, start: int, stop: int) -> dict:
     try:
         res = client.send_request(
             "uploaded_files",
@@ -103,7 +103,7 @@ def __append_partial(client: Client, partial_file_id: str, content: bytes, start
         raise Exception(f"Could not send chunk: {e}")
 
 
-def __complete_partial(client: Client, partial_file_id: str) -> dict:
+def _complete_partial(client: Client, partial_file_id: str) -> dict:
     try:
         res = client.send_request(
             "uploaded_files",
@@ -118,7 +118,7 @@ def __complete_partial(client: Client, partial_file_id: str) -> dict:
         raise Exception(f"Could not complete file upload: {e}")
 
 
-def __digest_server(client: Client, file_id: str) -> dict:
+def _digest_server(client: Client, file_id: str) -> dict:
     try:
         res = client.send_request(
             "uploaded_files",
@@ -133,7 +133,7 @@ def __digest_server(client: Client, file_id: str) -> dict:
         raise Exception(f"Could not fetch uploaded file digest: {e}")
 
 
-def __digest_client(content: bytes) -> str:
+def _digest_client(content: bytes) -> str:
     try:
         hash = hashlib.sha1()
         hash.update(content)

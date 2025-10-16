@@ -15,7 +15,7 @@ class ClientResponse():
         self._data = response.data
         self.headers = response.getheaders()
 
-    def __get_parsed_data_or_throw(self) -> dict:
+    def _get_parsed_data_or_throw(self) -> dict:
         return json.loads(self.get_data_str())
 
     def get_data_binary(self) -> bytes:
@@ -41,7 +41,7 @@ class ClientResponse():
             dict|None: A dictionary constructed from the payload, or None if the data is not in JSON format.
         """
         try:
-            return self.__get_parsed_data_or_throw()
+            return self._get_parsed_data_or_throw()
         except:
             return None
 
@@ -61,6 +61,25 @@ class ClientResponse():
 
         return response["payload"]
 
+    def check_success(self) -> None:
+        """Checks whether the response indicates a successful request.
+        Raises an exception if the request was not successful.
+
+        Raises:
+            Exception: Thrown when the request was not successful.
+        """
+        response = self.get_parsed_data()
+        if response is None or not isinstance(response, dict):
+            raise Exception("The response data is not in the expected format.")
+
+        if response.get("success", False):
+            return
+
+        if "error" in response:
+            raise Exception(f"The request was not successful: {response['error']}")
+
+        raise Exception("The request was not successful.")
+
     def get_json_string(self, minimized: bool = False) -> str:
         """Returns the response data as a JSON string.
 
@@ -77,7 +96,7 @@ class ClientResponse():
         if minimized:
             return self.get_data_str()
         try:
-            return json.dumps(self.__get_parsed_data_or_throw(), indent=2, ensure_ascii=False)
+            return json.dumps(self._get_parsed_data_or_throw(), indent=2, ensure_ascii=False)
         except:
             raise Exception("The response data is not in JSON format.")
 
@@ -96,12 +115,12 @@ class ClientResponse():
         try:
             if minimized:
                 return yaml.dump(
-                    self.__get_parsed_data_or_throw(),
+                    self._get_parsed_data_or_throw(),
                     default_flow_style=True,
                     indent=None,
                     allow_unicode=True
                 )
-            return yaml.dump(self.__get_parsed_data_or_throw(), allow_unicode=True, indent=2)
+            return yaml.dump(self._get_parsed_data_or_throw(), allow_unicode=True, indent=2)
         except:
             raise Exception("The response data could not be converted to YAML.")
 
