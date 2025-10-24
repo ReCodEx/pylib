@@ -16,7 +16,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "recodex-pylib"
-version = "0.2.1"
+version = "0.2.2"
 authors = [
   { name="Vojtech Kloda", email="vojtech.kloda@gmail.com" },
   { name="Martin Kruliš", email="krulis@d3s.mff.cuni.cz"},
