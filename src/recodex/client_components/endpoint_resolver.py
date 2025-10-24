@@ -118,6 +118,21 @@ class EndpointResolver:
         operation_id = self.alias_container.get_operation_id(presenter, action)
         return self.definitions[operation_id]
 
+    def get_endpoint_description(self, presenter: str, action: str) -> str:
+        """Returns the description of the endpoint.
+
+        Args:
+            presenter (str): ReCodEx presenter or alias.
+            action (str): ReCodEx action or alias.
+
+        Returns:
+            str: Returns the description of the endpoint or summary if description is missing.
+        """
+        definition = self.get_endpoint_definition(presenter, action)
+        description = definition.get("description", "").strip()
+        summary = definition.get("summary", "").strip()
+        return description if description else summary
+
     def endpoint_has_body(self, presenter: str, action: str) -> bool:
         """Returns whether an endpoint request expects a body.
 
@@ -130,6 +145,43 @@ class EndpointResolver:
         """
         definition = self.get_endpoint_definition(presenter, action)
         return "requestBody" in definition
+
+    def get_request_body_types(self, presenter: str, action: str) -> list[str] | None:
+        """Returns the type of the endpoint request body.
+
+        Args:
+            presenter (str): ReCodEx presenter or alias.
+            action (str): ReCodEx action or alias.
+
+        Returns:
+            list[str] | None: Returns the type of the endpoint request body, or None if there is no body.
+        """
+        definition = self.get_endpoint_definition(presenter, action)
+        if "requestBody" not in definition or "content" not in definition["requestBody"]:
+            return None
+
+        content = definition["requestBody"].get("content", {})
+        return list(content.keys())
+
+    def get_request_body_schema(self, presenter: str, action: str) -> dict | None:
+        """Returns the schema of the endpoint request body.
+
+        Args:
+            presenter (str): ReCodEx presenter or alias.
+            action (str): ReCodEx action or alias.
+
+        Returns:
+            dict | None: Returns the schema of the endpoint request body, or None if there is no body.
+        """
+        definition = self.get_endpoint_definition(presenter, action)
+        if "requestBody" not in definition or "content" not in definition["requestBody"]:
+            return None
+
+        content = definition["requestBody"].get("content", {})
+        json = content.get("application/json", None)
+        multipart = content.get("multipart/form-data", None)
+        schema = (json or multipart or {}).get("schema", None)
+        return schema
 
     def get_endpoint_params(self, presenter: str, action: str, method: str) -> list[dict]:
         """Returns a list of endpoint parameters matching the selected method.
