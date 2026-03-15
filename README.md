@@ -45,7 +45,7 @@ This will install the library in interactive mode, meaning that changes made to 
 
 ### Creating Client Instance
 
-The Client class is the primary interface with the library and can be created using an existing API token or ReCodEx credentials.
+The `Client` class is the primary interface with the library and can be created using an existing API token or ReCodEx credentials.
 
 By using the `get_client_from_token` and `get_client_from_credentials` functions shown below, a local session file will be created that holds the host URL and API token.
 In case a session already exists, the functions will remove it and create a new one.
@@ -155,11 +155,11 @@ file_id = upload(client, "file.txt", verbose=True)
 
 ## Commands
 
-The `commands` folder contains four utility commands:
+The `bin` folder contains four utility commands:
 - `init.sh` is used for initial setup of the repository after download; it is described in the installation section.
 - `update-generated-api.sh` generates code from a new OAS and replaces the old one. It also generates a diff summary in [api-changes.md](api-changes.md)
 - `run-tests-locally.sh` installs the library in interactive mode and runs all tests in the `tests` folder.
-
+- `swagger-diffchecker.py` a python script that compares two OAS files and generates a summary of the differences
 
 ## Repository Structure
 
@@ -179,7 +179,7 @@ The aliases are parsed and managed by the `AliasContainer` (`client_components/a
 
 ### Repository Utilities
 
-During code regeneration, the `./src/swagger-diffchecker.py` script is used to find differences between the old and new OAS and writes a summary to this README file.
+During code regeneration, the `./bin/swagger-diffchecker.py` script is used to find differences between the old and new OAS and writes a summary to this README file.
 
 ### Testing
 
