@@ -22,7 +22,7 @@ wget 'https://raw.githubusercontent.com/ReCodEx/api/refs/heads/master/docs/swagg
 if [ -d "./venv" ]; then
 	echo "Using internal Python venv"
 	./venv/bin/pip install -r requirements.txt
-	./venv/bin/activate
+	source ./venv/bin/activate
 fi
 
 # make the diff
