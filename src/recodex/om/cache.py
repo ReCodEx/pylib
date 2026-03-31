@@ -10,10 +10,13 @@ class Cache:
     def __init__(self, client: Client):
         self._client = client
         self._caches = {
-            "Group": {}
+            "Group": {},
+            "User": {}
         }
         self._getters = {
-            "Group": lambda client, id, _: client.send_request("groups", "detail", {}, {"id": id}).get_payload()
+            "Group": lambda client, id, _: client.send_request("groups", "detail",
+                                                               path_params={"id": id}).get_payload(),
+            "User": lambda client, id, _: client.send_request("users", "detail", path_params={"id": id}).get_payload()
         }
 
     def get(self, entity: type, id: str):
