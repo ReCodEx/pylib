@@ -5,7 +5,7 @@ class BaseEntity:
     '''
     Base class for all entities in the ReCodEx object model.
     '''
-    default_timezone = datetime.timezone.utc
+    default_timezone = datetime.datetime.now().astimezone().tzinfo
 
     def __init__(self, data: dict):
         self._data = data
