@@ -1,82 +1,12 @@
 from .cache import Cache
+from .base import LocalizedEntity
+from .user import User
 
 
-class Group:
+class Group(LocalizedEntity):
     '''
     Wrapper for group data structure with additional features.
     '''
-
-    def __init__(self, data: dict):
-        self._data = data
-        self._id = data.get("id")
-        self._children = None
-        if not self._id:
-            raise Exception("Group data structure must contain an 'id' field")
-
-    def id(self):
-        '''
-        Returns the ID of the group.
-        '''
-        return self._id
-
-    def get(self, *args, default=None):
-        '''
-        Gets a value from the group data structure by a path of keys and indices.
-        If the path does not exist, returns the default value (no error).
-        '''
-        if len(args) == 0:
-            raise Exception("At least one argument is required")
-
-        current = self._data
-        for arg in args:
-            if type(current) is dict and arg in current:
-                current = current[arg]
-            elif type(current) is list and arg is int and arg < len(current):
-                current = current[arg]
-            else:
-                return default
-
-        return current
-
-    def get_strict(self, *args):
-        '''
-        Gets a value from the group data structure by a path of keys and indices.
-        If the path does not exist, raises an error.
-        '''
-        if len(args) == 0:
-            raise Exception("At least one argument is required")
-
-        current = self._data
-        for arg in args:
-            if type(current) is dict and arg in current:
-                current = current[arg]
-            elif type(current) is list and arg is int and arg < len(current):
-                current = current[arg]
-            else:
-                raise Exception(f"Path {'.'.join(map(str, args))} does not exist in the group data structure")
-
-        return current
-
-    def get_localized_texts(self):
-        '''
-        Gets the localized texts of the group as a dictionary with locale as key and texts-dict as value.
-        The texts have the following keys: id, locale, name, description, and createdAt (timestamp).
-        '''
-        return {text["locale"]: text for text in self._data.get("localizedTexts") or []}
-
-    def get_name(self, locale='en'):
-        '''
-        Gets the localized name of the group.
-        If the selected locale is not available, falls back to English or the first available locale.
-        '''
-        texts = self.get_localized_texts()
-        if locale in texts and "name" in texts[locale]:
-            return texts[locale]["name"]
-        if "en" in texts and "name" in texts["en"]:
-            return texts["en"]["name"]
-
-        first = next(iter(texts.values()), None)
-        return first["name"] if first and "name" in first else None
 
     def get_parent(self) -> "Group | None":
         '''
@@ -112,6 +42,41 @@ class Group:
 
         return self._children
 
+    def get_admins(self) -> list[User]:
+        '''
+        Gets the list of (primary) admins of the group.
+        '''
+        admins_ids = self._data.get("primaryAdminsIds") or []
+        return list(map(lambda admin_id: Cache.cache().get(User, admin_id), admins_ids))
+
+    def get_all_admins(self) -> list[User]:
+        '''
+        Gets the list of all admins of the group (including secondary admins).
+        '''
+        admins_ids = self._data.get("privateData", "admins") or []
+        return list(map(lambda admin_id: Cache.cache().get(User, admin_id), admins_ids))
+
+    def get_supervisors(self) -> list[User]:
+        '''
+        Gets the list of supervisors of the group.
+        '''
+        supervisors_ids = self._data.get("privateData", "supervisors") or []
+        return list(map(lambda supervisor_id: Cache.cache().get(User, supervisor_id), supervisors_ids))
+
+    def get_observers(self) -> list[User]:
+        '''
+        Gets the list of observers of the group.
+        '''
+        observers_ids = self._data.get("privateData", "observers") or []
+        return list(map(lambda observer_id: Cache.cache().get(User, observer_id), observers_ids))
+
+    def get_students(self) -> list[User]:
+        '''
+        Gets the list of students of the group.
+        '''
+        students_ids = self._data.get("privateData", "students") or []
+        return list(map(lambda student_id: Cache.cache().get(User, student_id), students_ids))
+
     #
     # static methods
     #
@@ -129,7 +94,7 @@ class Group:
         query = {"archived": archived}
         if instanceId is not None:
             query["instanceId"] = instanceId
-        groups_data = client.send_request("groups", "default", {}, {}, query).get_payload()
+        groups_data = client.send_request("groups", "default", query_params=query).get_payload()
 
         groups = [Group(data) for data in groups_data or []]
         cache.inject(Group, groups)  # inject groups into cache
@@ -149,3 +114,13 @@ class Group:
         There should be only one such group (per instance).
         '''
         return not group.get("parentGroupId")
+
+    @staticmethod
+    def filter_factory_has_ancestor(group_id: str):
+        def filter_has_ancestor(group):
+            for aid in group.get("parentGroupsIds") or []:
+                if aid == group_id:
+                    return True
+            return False
+
+        return filter_has_ancestor
