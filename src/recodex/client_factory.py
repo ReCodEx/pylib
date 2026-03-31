@@ -3,6 +3,7 @@ from pathlib import Path
 import os
 
 from .client import Client
+from .om.cache import Cache
 from .helpers.user_session import UserSession
 
 config_dir = Path(appdirs.user_config_dir("recodex"))
@@ -118,6 +119,7 @@ def create_session_from_credentials(api_url: str, username: str, password: str, 
     password = password.strip()
 
     client = Client("", api_url)
+    Cache.cache().set_client(client)  # inject client into OM
 
     if verbose:
         print("Connecting...")
@@ -188,6 +190,7 @@ def _create_client_from_session(session: UserSession, force_refresh: bool = Fals
         raise Exception("No API URL was found in the session.")
 
     client = Client(session.get_api_token(), session.get_api_url())
+    Cache.cache().set_client(client)  # inject client into OM
 
     # refresh token if necessary
     if session.is_token_almost_expired() or force_refresh:
@@ -195,4 +198,6 @@ def _create_client_from_session(session: UserSession, force_refresh: bool = Fals
         session.store(session_path)
         # recreate client
         client = Client(session.get_api_token(), session.get_api_url())  # type: ignore
+        Cache.cache().set_client(client)  # inject client into OM
+
     return client
