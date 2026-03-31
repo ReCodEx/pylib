@@ -130,4 +130,4 @@ class ClientResponse():
             file_path (str): Path to the output file.
         """
         with open(file_path, "wb") as f:
-            f.write(self.data_binary)
+            f.write(self.get_data_binary())

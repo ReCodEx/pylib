@@ -13,6 +13,7 @@ class Cache:
             "Assignment": {},
             "Exercise": {},
             "Group": {},
+            "Solution": {},
             "User": {}
         }
         self._getters = {
@@ -22,6 +23,8 @@ class Cache:
                                                                   path_params={"id": id}).get_payload(),
             "Group": lambda client, id, _: client.send_request("groups", "detail",
                                                                path_params={"id": id}).get_payload(),
+            "Solution": lambda client, id, _: client.send_request("assignment_solutions", "solution",
+                                                                  path_params={"id": id}).get_payload(),
             "User": lambda client, id, _: client.send_request("users", "detail", path_params={"id": id}).get_payload()
         }
 
@@ -72,6 +75,18 @@ class Cache:
             if type(obj) is not entity:
                 raise Exception(f"Expected object of type {entity.__name__}, got {type(obj).__name__}")
             cache[obj.id()] = obj
+
+    def clear(self, entity: type = None):
+        '''
+        Clears the cache for a given entity type, or all caches if no type is specified.
+        '''
+        if entity is not None:
+            if entity.__name__ not in self._caches:
+                raise Exception(f"Unknown entity type {entity.__name__}")
+            self._caches[entity.__name__] = {}
+        else:
+            for key in self._caches.keys():
+                self._caches[key] = {}
 
     @staticmethod
     def cache(client: Client = None) -> "Cache":
