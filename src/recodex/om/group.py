@@ -1,5 +1,6 @@
 from .cache import Cache
 from .base import LocalizedEntity
+from .assignment import Assignment
 from .user import User
 
 
@@ -47,35 +48,42 @@ class Group(LocalizedEntity):
         Gets the list of (primary) admins of the group.
         '''
         admins_ids = self._data.get("primaryAdminsIds") or []
-        return list(map(lambda admin_id: Cache.cache().get(User, admin_id), admins_ids))
+        return [Cache.cache().get(User, admin_id) for admin_id in admins_ids]
 
     def get_all_admins(self) -> list[User]:
         '''
         Gets the list of all admins of the group (including secondary admins).
         '''
         admins_ids = self._data.get("privateData", "admins") or []
-        return list(map(lambda admin_id: Cache.cache().get(User, admin_id), admins_ids))
+        return [Cache.cache().get(User, admin_id) for admin_id in admins_ids]
 
     def get_supervisors(self) -> list[User]:
         '''
         Gets the list of supervisors of the group.
         '''
         supervisors_ids = self._data.get("privateData", "supervisors") or []
-        return list(map(lambda supervisor_id: Cache.cache().get(User, supervisor_id), supervisors_ids))
+        return [Cache.cache().get(User, supervisor_id) for supervisor_id in supervisors_ids]
 
     def get_observers(self) -> list[User]:
         '''
         Gets the list of observers of the group.
         '''
         observers_ids = self._data.get("privateData", "observers") or []
-        return list(map(lambda observer_id: Cache.cache().get(User, observer_id), observers_ids))
+        return [Cache.cache().get(User, observer_id) for observer_id in observers_ids]
 
     def get_students(self) -> list[User]:
         '''
         Gets the list of students of the group.
         '''
         students_ids = self._data.get("privateData", "students") or []
-        return list(map(lambda student_id: Cache.cache().get(User, student_id), students_ids))
+        return [Cache.cache().get(User, student_id) for student_id in students_ids]
+
+    def get_assignments(self) -> list[Assignment]:
+        '''
+        Gets the list of assignments of the group.
+        '''
+        assignments_ids = self._data.get("privateData", "assignments") or []
+        return [Cache.cache().get(Assignment, assignment_id) for assignment_id in assignments_ids]
 
     #
     # static methods
