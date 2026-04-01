@@ -34,8 +34,8 @@ class CommentThread(LocalizedEntity):
     def refresh(self):
         client = Cache.cache().get_client()
         data = client.send_request_by_callback(
-            DefaultApi.comments_presenter_action_detail,
-            path_params={"id": self.id()}).get_payload(),
+            DefaultApi.comments_presenter_action_default,
+            path_params={"id": self.id()}).get_payload()
         self.update(data)
 
     def get_comments(self) -> list[Comment]:

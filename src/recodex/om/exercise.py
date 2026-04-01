@@ -13,7 +13,7 @@ class Exercise(LocalizedEntity):
         client = Cache.cache().get_client()
         data = client.send_request_by_callback(
             DefaultApi.exercises_presenter_action_detail,
-            path_params={"id": self.id()}).get_payload(),
+            path_params={"id": self.id()}).get_payload()
         self.update(data)
 
     def get_author(self) -> User:
