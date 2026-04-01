@@ -14,21 +14,11 @@ class Cache:
             "Exercise": {},
             "Group": {},
             "Solution": {},
+            "Submission": {},
             "User": {}
         }
-        self._getters = {
-            "Assignment": lambda client, id, _: client.send_request("assignments", "detail",
-                                                                    path_params={"id": id}).get_payload(),
-            "Exercise": lambda client, id, _: client.send_request("exercises", "detail",
-                                                                  path_params={"id": id}).get_payload(),
-            "Group": lambda client, id, _: client.send_request("groups", "detail",
-                                                               path_params={"id": id}).get_payload(),
-            "Solution": lambda client, id, _: client.send_request("assignment_solutions", "solution",
-                                                                  path_params={"id": id}).get_payload(),
-            "User": lambda client, id, _: client.send_request("users", "detail", path_params={"id": id}).get_payload()
-        }
 
-    def get(self, entity: type, id: str):
+    def get(self, entity: type, id: str, strict: bool = False):
         '''
         Retrieves an entity of the specified type from the cache.
         The type is the class of the entity (like Group).
@@ -40,11 +30,15 @@ class Cache:
         if id not in cache:
             if self._client is None:
                 raise Exception("Unable to fetch entity into a cache, no client instance was provided")
-            getter = self._getters.get(entity.__name__)
-            if getter is None:
-                raise Exception(f"{entity.__name__} with id {id} not found and no getter function is defined")
-            data = getter(self._client, id, self)
-            cache[id] = entity(data) if data is not None else None
+
+            obj = entity({"id": id})
+            try:
+                obj.refresh()  # this will fetch the data from the server and update the cache
+            except Exception as e:
+                if strict:
+                    raise e
+                obj = None
+            cache[id] = obj
 
         return cache[id]
 
@@ -64,17 +58,32 @@ class Cache:
 
     def inject(self, entity: type, objects):
         '''
-        Injects objects into the cache for a given entity type.
-        The objects is an iterable (like a list), of specific type
+        Injects one or multiple objects into the cache for a given entity type.
+        The object(s) is an instance of base entity or an iterable (like a list), of specific entity.
+        Returns a list of the injected objects in the same order as they were provided
+        (not necessarily the same instances, but the corresponding objects which are stored in the cache).
+        Single object is returned if one object (not in a list) was provided.
         '''
         if entity.__name__ not in self._caches:
             raise Exception(f"Unknown entity type {entity.__name__}")
 
         cache = self._caches[entity.__name__]
+
+        single = type(objects) is entity
+        if single:
+            objects = [objects]
+
+        result = []
         for obj in objects:
             if type(obj) is not entity:
                 raise Exception(f"Expected object of type {entity.__name__}, got {type(obj).__name__}")
-            cache[obj.id()] = obj
+            if obj.id() in cache and type(cache[obj.id()]) is entity:
+                cache[obj.id()].update(obj._data)  # update existing object in cache
+            else:
+                cache[obj.id()] = obj
+            result.append(cache[obj.id()])
+
+        return result[0] if single else result
 
     def clear(self, entity: type = None):
         '''

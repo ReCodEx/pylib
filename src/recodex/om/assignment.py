@@ -1,3 +1,4 @@
+from recodex.generated.swagger_client import DefaultApi
 from .cache import Cache
 from .base import LocalizedEntity
 from .exercise import Exercise
@@ -9,6 +10,13 @@ class Assignment(LocalizedEntity):
     Wrapper for assignment data structure with additional features.
     '''
 
+    def refresh(self):
+        client = Cache.cache().get_client()
+        data = client.send_request_by_callback(
+            DefaultApi.assignments_presenter_action_detail,
+            path_params={"id": self.id()}).get_payload(),
+        self.update(data)
+
     def get_exercise(self) -> Exercise:
         '''
         Gets the exercise of the assignment.
@@ -16,14 +24,15 @@ class Assignment(LocalizedEntity):
         id = self.get("exerciseId")
         return Cache.cache().get(Exercise, id) if id else None
 
-    def get_solutions(self):
+    def get_solutions(self) -> list[Solution]:
         '''
         Gets the list of solutions of the assignment.
         '''
         cache = Cache.cache()
         client = cache.get_client()
-        solutions_data = client.send_request("assignments", "solutions",
-                                             path_params={"id": self.id()}).get_payload()
+        solutions_data = client.send_request_by_callback(
+            DefaultApi.assignments_presenter_action_solutions,
+            path_params={"id": self.id()}
+        ).get_payload()
         solutions = [Solution(data) for data in solutions_data]
-        cache.inject(Solution, solutions)  # inject solutions into cache
-        return solutions
+        return cache.inject(Solution, solutions)  # inject solutions into cache

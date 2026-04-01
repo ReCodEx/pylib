@@ -10,9 +10,15 @@ class BaseEntity:
     def __init__(self, data: dict):
         self._data = data
         self._id = data.get("id")
-        self._children = None
         if not self._id:
             raise Exception("Data structure must contain an 'id' field")
+
+    def update(self, data: dict):
+        '''
+        Updates the entity with new data.
+        '''
+        self._data = data
+        self._id = data.get("id")
 
     def id(self):
         '''
@@ -63,6 +69,12 @@ class BaseEntity:
 
         # convert timestamp to datetime
         return datetime.datetime.fromtimestamp(ts, self.default_timezone)
+
+    def refresh(self):
+        '''
+        Reload the entity from the server and update its data.
+        '''
+        raise NotImplementedError("The refresh method is not implemented for this entity type")
 
 
 class LocalizedEntity(BaseEntity):
