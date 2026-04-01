@@ -20,6 +20,13 @@ class BaseEntity:
         self._data = data
         self._id = data.get("id")
 
+    def invalidate(self):
+        '''
+        Invalidates the entity, i.e., removes it from the cache and marks it as invalid.
+        '''
+        self._data = None
+        self._id = None
+
     def id(self):
         '''
         Returns the ID of the entity (all entities have an ID).

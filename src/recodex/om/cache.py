@@ -18,6 +18,14 @@ class Cache:
             "User": {}
         }
 
+    def has(self, entity: type, id: str) -> bool:
+        '''
+        Checks if an entity of the specified type and ID is present in the cache.
+        '''
+        if entity.__name__ not in self._caches:
+            raise Exception(f"Unknown entity type {entity.__name__}")
+        return id in self._caches[entity.__name__] and self._caches[entity.__name__][id] is not None
+
     def get(self, entity: type, id: str, strict: bool = False):
         '''
         Retrieves an entity of the specified type from the cache.
@@ -84,6 +92,19 @@ class Cache:
             result.append(cache[obj.id()])
 
         return result[0] if single else result
+
+    def remove(self, entity: type, id: str) -> bool:
+        '''
+        Removes an entity of the specified type and ID from the cache.
+        Returns True if the entity was removed, False if it was not found in the cache.
+        '''
+        if entity.__name__ not in self._caches:
+            raise Exception(f"Unknown entity type {entity.__name__}")
+        cache = self._caches[entity.__name__]
+        if id in cache:
+            del cache[id]
+            return True
+        return False
 
     def clear(self, entity: type = None):
         '''
