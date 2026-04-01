@@ -47,6 +47,19 @@ class Solution(BaseEntity):
         '''
         return self._last_submission
 
+    def get_submissions(self) -> list[Submission]:
+        '''
+        Gets the list of all submissions of the solution.
+        '''
+        cache = Cache.cache()
+        client = cache.get_client()
+        submissions_data = client.send_request_by_callback(
+            DefaultApi.assignment_solutions_presenter_action_submissions,
+            path_params={"id": self.id()}
+        ).get_payload()
+        submissions = [Submission(data) for data in submissions_data or []]
+        return cache.inject(Submission, submissions)  # inject submissions into cache
+
     def download(self, path: str):
         '''
         Downloads the solution in a .zip archive to the specified path.
@@ -121,3 +134,27 @@ class Solution(BaseEntity):
         ).get_payload()
         if "solution" in payload:
             self.update(payload["solution"])
+
+    def delete_submission(self, submission_id: str):
+        '''
+        Deletes given submission of the solution.
+        '''
+        submission_ids = self.get("submissions") or []
+        if submission_id not in submission_ids:
+            raise Exception(f"Submission with ID {submission_id} not found in the solution")
+
+        cache = Cache.cache()
+        client = cache.get_client()
+        client.send_request_by_callback(
+            DefaultApi.assignment_solutions_presenter_action_delete_submission,
+            path_params={"submissionId": submission_id}
+        ).check_success()
+
+        # make sure the entity is no longer usable
+        if cache.has(Submission, submission_id):
+            sub = cache.get(Submission, submission_id)
+            sub.invalidate()  # invalidate the submission in the cache
+            cache.remove(Submission, submission_id)  # remove the submission from the cache
+
+        # solution needs to be refreshed to get the updated list of submissions and the last submission
+        self.refresh()
