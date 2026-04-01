@@ -1,3 +1,4 @@
+from recodex.generated.swagger_client import DefaultApi
 from .cache import Cache
 from .base import BaseEntity
 
@@ -6,6 +7,13 @@ class User(BaseEntity):
     '''
     Wrapper for user data structure with additional features.
     '''
+
+    def refresh(self):
+        client = Cache.cache().get_client()
+        data = client.send_request_by_callback(
+            DefaultApi.users_presenter_action_detail,
+            path_params={"id": self.id()}).get_payload()
+        self.update(data)
 
     def get_name(self, surname_first: bool = False) -> str:
         '''
@@ -28,7 +36,9 @@ class User(BaseEntity):
         '''
         cache = Cache.cache()
         client = cache.get_client()
-        users_data = client.send_request("users", "list_by_ids", body={"ids": ids}).get_payload()
+        users_data = client.send_request_by_callback(
+            DefaultApi.users_presenter_action_list_by_ids,
+            body={"ids": ids}
+        ).get_payload()
         users = [User(data) for data in users_data or []]
-        cache.inject(User, users)  # inject users into cache
-        return users
+        return cache.inject(User, users)  # inject users into cache

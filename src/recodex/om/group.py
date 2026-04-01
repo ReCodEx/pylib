@@ -1,3 +1,4 @@
+from recodex.generated.swagger_client import DefaultApi
 from .cache import Cache
 from .base import LocalizedEntity
 from .assignment import Assignment
@@ -8,6 +9,17 @@ class Group(LocalizedEntity):
     '''
     Wrapper for group data structure with additional features.
     '''
+
+    def __init__(self, data: dict, children_init: list["Group"] = None):
+        super().__init__(data)
+        self._children = children_init
+
+    def refresh(self):
+        client = Cache.cache().get_client()
+        data = client.send_request_by_callback(
+            DefaultApi.groups_presenter_action_detail,
+            path_params={"id": self.id()}).get_payload()
+        self.update(data)
 
     def get_parent(self) -> "Group | None":
         '''
@@ -102,10 +114,13 @@ class Group(LocalizedEntity):
         query = {"archived": archived}
         if instanceId is not None:
             query["instanceId"] = instanceId
-        groups_data = client.send_request("groups", "default", query_params=query).get_payload()
+        groups_data = client.send_request_by_callback(
+            DefaultApi.groups_presenter_action_default,
+            query_params=query
+        ).get_payload()
 
-        groups = [Group(data) for data in groups_data or []]
-        cache.inject(Group, groups)  # inject groups into cache
+        groups = [Group(data, []) for data in groups_data or []]
+        groups = cache.inject(Group, groups)  # inject groups into cache
 
         # build children lists and in groups
         for group in groups:
