@@ -11,6 +11,7 @@ class Cache:
         self._client = client
         self._caches = {
             "Assignment": {},
+            "CommentThread": {},
             "Exercise": {},
             "Group": {},
             "Solution": {},
@@ -26,7 +27,7 @@ class Cache:
             raise Exception(f"Unknown entity type {entity.__name__}")
         return id in self._caches[entity.__name__] and self._caches[entity.__name__][id] is not None
 
-    def get(self, entity: type, id: str, strict: bool = False):
+    def get(self, entity: type, id: str, strict: bool = True):
         '''
         Retrieves an entity of the specified type from the cache.
         The type is the class of the entity (like Group).
@@ -117,6 +118,18 @@ class Cache:
         else:
             for key in self._caches.keys():
                 self._caches[key] = {}
+
+    def get_current_user(self):
+        '''
+        Gets the current user associated with the auth token used in the client.
+        Returns None if the current user cannot be determined.
+        '''
+        from .user import User
+        client = self.get_client()
+        id = client.current_user_id
+        if id is None:
+            return None
+        return self.get(User, id)
 
     @staticmethod
     def cache(client: Client = None) -> "Cache":

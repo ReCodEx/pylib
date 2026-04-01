@@ -1,5 +1,6 @@
 from recodex.generated.swagger_client import DefaultApi
 from .cache import Cache
+from .comments import CommentThread
 from .base import BaseEntity
 from .submission import Submission
 from .user import User
@@ -158,3 +159,10 @@ class Solution(BaseEntity):
 
         # solution needs to be refreshed to get the updated list of submissions and the last submission
         self.refresh()
+
+    def get_comments_thread(self) -> CommentThread:
+        '''
+        Gets the comment thread associated with the solution.
+        The thread is created when first used.
+        '''
+        return Cache.cache().get(CommentThread, self.id())  # ensure the thread is in the cache

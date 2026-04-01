@@ -1,4 +1,5 @@
 from collections.abc import Callable
+import jwt
 
 from .generated.swagger_client import ApiClient
 from .generated.swagger_client import DefaultApi
@@ -67,6 +68,11 @@ class Client:
             token (str): The JWT token used for authentication.
             host (str): The URL of the ReCodEx server.
         """
+
+        self.current_user_id = None
+        decoded_token = jwt.decode(token, options={"verify_signature": False})
+        if decoded_token and "sub" in decoded_token:
+            self.current_user_id = decoded_token["sub"]
 
         # initialize generated classes
         config = Configuration()

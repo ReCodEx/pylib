@@ -13,7 +13,7 @@ class Submission(BaseEntity):
         client = Cache.cache().get_client()
         data = client.send_request_by_callback(
             DefaultApi.assignment_solutions_presenter_action_submission,
-            path_params={"submissionId": self.id()}).get_payload(),
+            path_params={"submissionId": self.id()}).get_payload()
         self.update(data)
 
     def is_evaluated(self) -> bool:

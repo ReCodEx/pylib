@@ -1,5 +1,6 @@
 from recodex.generated.swagger_client import DefaultApi
 from .cache import Cache
+from .comments import CommentThread
 from .base import LocalizedEntity
 from .exercise import Exercise
 from .solution import Solution
@@ -14,7 +15,7 @@ class Assignment(LocalizedEntity):
         client = Cache.cache().get_client()
         data = client.send_request_by_callback(
             DefaultApi.assignments_presenter_action_detail,
-            path_params={"id": self.id()}).get_payload(),
+            path_params={"id": self.id()}).get_payload()
         self.update(data)
 
     def get_exercise(self) -> Exercise:
@@ -36,3 +37,10 @@ class Assignment(LocalizedEntity):
         ).get_payload()
         solutions = [Solution(data) for data in solutions_data]
         return cache.inject(Solution, solutions)  # inject solutions into cache
+
+    def get_comments_thread(self) -> CommentThread:
+        '''
+        Gets the comment thread associated with the assignment.
+        The thread is created when first used.
+        '''
+        return Cache.cache().get(CommentThread, self.id())  # ensure the thread is in the cache
