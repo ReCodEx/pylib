@@ -15,6 +15,7 @@ class Cache:
             "Exercise": {},
             "Group": {},
             "Solution": {},
+            "SolutionReview": {},
             "Submission": {},
             "User": {}
         }
@@ -93,6 +94,23 @@ class Cache:
             result.append(cache[obj.id()])
 
         return result[0] if single else result
+
+    def update_raw(self, entity_name: str, data: dict):
+        '''
+        Updates the cache for a given entity type with the provided raw data.
+        The data is a dictionary containing the entity data, including the ID.
+        The entity type is specified by its name (like "Group").
+        This method is used internally when refreshing entities, to update the cache with the new data.
+        '''
+        if entity_name not in self._caches:
+            raise Exception(f"Unknown entity type {entity_name}")
+        cache = self._caches[entity_name]
+        id = data.get("id")
+        if id is None:
+            raise Exception("Data must contain an 'id' field to be updated in the cache")
+        if id in cache and type(cache[id]).__name__ == entity_name:
+            cache[id].update(data)  # update existing object in cache
+        # no action is taken if the entity is not in the cache
 
     def remove(self, entity: type, id: str) -> bool:
         '''

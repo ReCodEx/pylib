@@ -2,9 +2,76 @@ from recodex.generated.swagger_client import DefaultApi
 from .cache import Cache
 from .comments import CommentThread
 from .base import BaseEntity
+from .solution_review import SolutionReview
 from .submission import Submission
 from .user import User
 from pathlib import Path
+
+
+class SolutionFile(BaseEntity):
+    '''
+    Wrapper for solution file data structure (file metadata).
+    This structure has no refresh (loading) method, it needs to be loaded from Solution.
+    The automated zip exploration is not supported yet.
+    '''
+
+    def get_name(self) -> str:
+        '''
+        Shortcut that gets the name of the solution file.
+        '''
+        return self.get("name")
+
+    def get_size(self) -> int:
+        '''
+        Shortcut that gets the size of the solution file in bytes.
+        '''
+        return self.get("size")
+
+    def download(self, path: str):
+        '''
+        Downloads the solution file to the specified path.
+        The path should be either a file name path or a directory path.
+        In the latter case, the file will be named {solution_file_id}.
+        '''
+        if Path(path).is_dir():
+            path = Path(path) / f"{self.get_name()}"
+        elif not Path(path).parent.exists():
+            raise Exception(f"Directory {Path(path).parent} does not exist")
+
+        client = Cache.cache().get_client()
+        client.send_request_by_callback(
+            DefaultApi.uploaded_files_presenter_action_download,
+            path_params={"id": self.id()}
+        ).save_to_file(path)
+
+    def get_content(self) -> str:
+        '''
+        Gets the content of the solution file as string.
+        Returns dictionary {
+            "content": <file content as string>
+            "malformedCharacters": <boolean indicating whether there are replaced characters in the content>
+            "tooLarge": <boolean indicating whether content was truncated due to large file size>
+        }
+        '''
+        client = Cache.cache().get_client()
+        return client.send_request_by_callback(
+            DefaultApi.uploaded_files_presenter_action_content,
+            path_params={"id": self.id()}
+        ).get_payload()
+
+    def get_digest(self) -> str:
+        '''
+        Gets the digest (hash) of the solution file.
+        Returns dictionary {
+            "digest": <file hash as string>
+            "algorithm": <digest algorithm used, currently should be "sha1">
+        }
+        '''
+        client = Cache.cache().get_client()
+        return client.send_request_by_callback(
+            DefaultApi.uploaded_files_presenter_action_digest,
+            path_params={"id": self.id()}
+        ).get_payload()
 
 
 class Solution(BaseEntity):
@@ -63,7 +130,7 @@ class Solution(BaseEntity):
 
     def download(self, path: str):
         '''
-        Downloads the solution in a .zip archive to the specified path.
+        Downloads the whole solution in a .zip archive to the specified path.
         The path should be either a file name path or a directory path.
         In the latter case, the file will be named {solution_id}.zip.
         '''
@@ -166,3 +233,34 @@ class Solution(BaseEntity):
         The thread is created when first used.
         '''
         return Cache.cache().get(CommentThread, self.id())  # ensure the thread is in the cache
+
+    def get_files(self) -> list[SolutionFile]:
+        '''
+        Gets the list of files associated with the solution.
+        '''
+        client = Cache.cache().get_client()
+        data = client.send_request_by_callback(
+            DefaultApi.assignment_solutions_presenter_action_files,
+            path_params={"id": self.id()}
+        ).get_payload()
+        return [SolutionFile(file_data) for file_data in data or []]
+
+    def get_review(self) -> SolutionReview | None:
+        '''
+        Gets the review of the solution, or None if there is no review.
+        '''
+        if self.get("review", "startedAt") is None:
+            return None
+        return Cache.cache().get(SolutionReview, self.id())
+
+    def start_review(self, close: bool = False) -> SolutionReview:
+        '''
+        Starts the review of the solution. If the review already exists, it is returned instead.
+        '''
+        review = self.get_review()
+        if review is not None:
+            return review
+
+        review = SolutionReview({"id": self.id()})
+        review.update_status(close)  # this will create the review and update its data
+        return Cache.cache().inject(SolutionReview, review)  # inject the review into the cache
