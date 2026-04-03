@@ -4,5 +4,6 @@ from .comments import Comment, CommentThread  # noqa
 from .exercise import Exercise  # noqa
 from .group import Group  # noqa
 from .solution import Solution  # noqa
+from .solution_review import ReviewComment, SolutionReview  # noqa
 from .submission import Submission  # noqa
 from .user import User  # noqa
