@@ -151,6 +151,36 @@ from recodex.helpers.file_upload_helper import upload
 file_id = upload(client, "file.txt", verbose=True)
 ```
 
+### Object Models
+
+**⚠️ NOTE: The object models are still in development and may be subject to change! ⚠️**
+
+On the top of the client, there are object models that provide a more user-friendly interface for common operations. The objects try to mirror ReCodEx entities and provide methods for common operations on them. The entities are accessed via `Cache` singleton which manages their creation to avoid having multiple instances of unnecessary repetitive API calls.
+
+Example:
+```python
+from recodex import client_factory
+import recodex.om as om
+
+# client factory methods also inject the client object into OM cache
+client_factory.get_client_from_session()
+
+# cache is a singleton accessible by `cache` static method of `Cache` class
+cache = om.Cache.cache()
+
+# most direct way to get an entity is to use the `get` method of the cache, which accepts the class of the entity and its ID
+group = cache.get(om.Group, '154b...')
+
+# some entity classes provide additional static methods for collective fetching
+groups = om.Group.load_all()  # get all groups a user can see
+
+# some entities provide additional methods for fetching related entities
+assignments = group.get_assignments()
+```
+
+No detailed documentation is maintained for the moment as the OM is still in development. Explore files in the `./src/recodex/om` folder for more details on the available entities and their methods.
+
+
 # Development
 
 ## Commands
@@ -175,6 +205,8 @@ The folder is not part of the repository and needs to be manually generated.
 
 The `aliases.yaml` file contains all aliases for endpoints. These aliases can be used instead of the default presenter and action identifiers.
 The aliases are parsed and managed by the `AliasContainer` (`client_components/alias_container.py`) class.
+
+The `./src/recodex/om` folder contains object models that operate on top of the client and provide a more user-friendly interface for common operations.
 
 
 ### Repository Utilities
