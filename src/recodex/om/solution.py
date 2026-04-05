@@ -101,7 +101,15 @@ class Solution(BaseEntity):
             path_params={"id": self.id()}).get_payload()
         self.update(data)
 
-    def get_author(self):
+    def get_assignment(self):
+        '''
+        Gets the assignment of the solution.
+        '''
+        from .assignment import Assignment  # avoid circular import
+        assignment_id = self.get("assignmentId")
+        return Cache.cache().get(Assignment, assignment_id) if assignment_id else None
+
+    def get_author(self) -> User | None:
         '''
         Gets the author of the solution.
         '''
@@ -149,7 +157,7 @@ class Solution(BaseEntity):
         '''
         Sets the flag of the solution to the specified value.
         '''
-        if flag not in ["accepted", "reviewRequested"]:
+        if flag not in ["accepted", "reviewRequest"]:
             raise Exception(f"Invalid flag: {flag}")
         client = Cache.cache().get_client()
         payload = client.send_request_by_callback(

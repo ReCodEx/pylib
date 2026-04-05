@@ -25,7 +25,7 @@ class Group(LocalizedEntity):
         '''
         Gets the parent group of the group, or None if it does not have a parent.
         '''
-        parent_id = self._data.get("parentGroupId")
+        parent_id = self.get("parentGroupId")
         if not parent_id:
             return None
         parent = Cache.cache().get(Group, parent_id)
@@ -44,7 +44,7 @@ class Group(LocalizedEntity):
         Gets the list of sub-groups of the group.
         '''
         if self._children is None:
-            children_ids = self._data.get("childGroups") or []
+            children_ids = self.get("childGroups") or []
             children = []
             for child_id in children_ids:
                 child = Cache.cache().get(Group, child_id)
@@ -59,42 +59,42 @@ class Group(LocalizedEntity):
         '''
         Gets the list of (primary) admins of the group.
         '''
-        admins_ids = self._data.get("primaryAdminsIds") or []
+        admins_ids = self.get("primaryAdminsIds") or []
         return [Cache.cache().get(User, admin_id) for admin_id in admins_ids]
 
     def get_all_admins(self) -> list[User]:
         '''
         Gets the list of all admins of the group (including secondary admins).
         '''
-        admins_ids = self._data.get("privateData", "admins") or []
+        admins_ids = self.get("privateData", "admins") or []
         return [Cache.cache().get(User, admin_id) for admin_id in admins_ids]
 
     def get_supervisors(self) -> list[User]:
         '''
         Gets the list of supervisors of the group.
         '''
-        supervisors_ids = self._data.get("privateData", "supervisors") or []
+        supervisors_ids = self.get("privateData", "supervisors") or []
         return [Cache.cache().get(User, supervisor_id) for supervisor_id in supervisors_ids]
 
     def get_observers(self) -> list[User]:
         '''
         Gets the list of observers of the group.
         '''
-        observers_ids = self._data.get("privateData", "observers") or []
+        observers_ids = self.get("privateData", "observers") or []
         return [Cache.cache().get(User, observer_id) for observer_id in observers_ids]
 
     def get_students(self) -> list[User]:
         '''
         Gets the list of students of the group.
         '''
-        students_ids = self._data.get("privateData", "students") or []
+        students_ids = self.get("privateData", "students") or []
         return [Cache.cache().get(User, student_id) for student_id in students_ids]
 
     def get_assignments(self) -> list[Assignment]:
         '''
         Gets the list of assignments of the group.
         '''
-        assignments_ids = self._data.get("privateData", "assignments") or []
+        assignments_ids = self.get("privateData", "assignments") or []
         return [Cache.cache().get(Assignment, assignment_id) for assignment_id in assignments_ids]
 
     #
